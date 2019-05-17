@@ -26,6 +26,7 @@ package net.runelite.client.plugins.easyscape;
 
 import com.google.inject.Provides;
 import javax.inject.Inject;
+import joptsimple.internal.Strings;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
@@ -98,16 +99,8 @@ public class EasyscapePlugin extends Plugin
 			return;
 		}
 
-		Widget loginScreenOne = client.getWidget(WidgetInfo.LOGIN_CLICK_TO_PLAY_SCREEN);
-		Widget loginScreenTwo = client.getWidget(WidgetInfo.LOGIN_CLICK_TO_PLAY_SCREEN_MESSAGE_OF_THE_DAY);
-
-		if (loginScreenOne != null || loginScreenTwo != null)
-		{
-			return;
-		}
-
-		final String option = Text.removeTags(event.getOption()).toLowerCase();
-		final String target = Text.removeTags(event.getTarget()).toLowerCase();
+		final String option = Text.standardize(event.getOption());
+		final String target = Text.standardize(event.getTarget());
 
 		entries = client.getMenuEntries();
 
@@ -124,11 +117,10 @@ public class EasyscapePlugin extends Plugin
 			client.setMenuEntries(entries);
 		}
 
-		if (config.getRemoveObjects() && !config.getRemovedObjects().equals(""))
+		if (config.getRemoveObjects() && !Strings.isNullOrEmpty(config.getRemovedObjects()))
 		{
-			for (String removed : config.getRemovedObjects().split(","))
+			for (String removed : Text.fromCSV(config.getRemovedObjects()))
 			{
-				removed = removed.trim();
 				if (target.contains("->"))
 				{
 					String trimmed = target.split("->")[1].trim();
@@ -164,7 +156,7 @@ public class EasyscapePlugin extends Plugin
 			}
 		}
 
-		if (config.getEasyConstruction() && !config.getConstructionItems().equals(""))
+		if (config.getEasyConstruction() && isHouse() && !Strings.isNullOrEmpty(config.getConstructionItems()))
 		{
 			if (event.getType() == WALK.getId())
 			{
@@ -177,9 +169,9 @@ public class EasyscapePlugin extends Plugin
 
 			for (int i = entries.length - 1; i >= 0; i--)
 			{
-				for (String item : config.getConstructionItems().split(","))
+				for (String item : Text.fromCSV(config.getConstructionItems()))
 				{
-					if (item.trim().equalsIgnoreCase(Text.removeTags(entries[i].getTarget())))
+					if (item.equalsIgnoreCase(Text.removeTags(entries[i].getTarget())))
 					{
 						if (!entries[i].getOption().equalsIgnoreCase("remove"))
 						{
@@ -193,11 +185,11 @@ public class EasyscapePlugin extends Plugin
 			client.setMenuEntries(entries);
 		}
 
-		if (config.getSwapShop() && !config.getSwappedItems().equals(""))
+		if (config.getSwapShop() && !Strings.isNullOrEmpty(config.getSwappedItems()))
 		{
-			for (String item : config.getSwappedItems().split(","))
+			for (String item : Text.fromCSV(config.getSwappedItems()))
 			{
-				if (target.equalsIgnoreCase(item.trim()))
+				if (target.equalsIgnoreCase(item))
 				{
 					swap(client, "Buy 50", option, target);
 				}
@@ -257,30 +249,28 @@ public class EasyscapePlugin extends Plugin
 			if (isEssencePouch(target))
 			{
 				Widget widgetBankTitleBar = client.getWidget(WidgetInfo.BANK_TITLE_BAR);
-				switch (config.getEssenceMode())
+				EssenceMode essenceMode = config.getEssenceMode();
+				if (essenceMode == EssenceMode.RUNECRAFTING)
 				{
-					case RUNECRAFTING:
-						if (widgetBankTitleBar == null || widgetBankTitleBar.isHidden())
-						{
-							swap(client, "Empty", option, target);
-						}
-						else
-						{
-							swap(client, "Fill", option, target);
-						}
-						break;
-					case ESSENCE_MINING:
-						if (widgetBankTitleBar == null || widgetBankTitleBar.isHidden())
-						{
-							swap(client, "Fill", option, target);
-						}
-						else
-						{
-							swap(client, "Empty", option, target);
-						}
-						break;
-					default:
-						break;
+					if (widgetBankTitleBar == null || widgetBankTitleBar.isHidden())
+					{
+						swap(client, "Empty", option, target);
+					}
+					else
+					{
+						swap(client, "Fill", option, target);
+					}
+				}
+				else if (essenceMode == EssenceMode.ESSENCE_MINING)
+				{
+					if (widgetBankTitleBar == null || widgetBankTitleBar.isHidden())
+					{
+						swap(client, "Fill", option, target);
+					}
+					else
+					{
+						swap(client, "Empty", option, target);
+					}
 				}
 			}
 		}

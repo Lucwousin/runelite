@@ -425,7 +425,7 @@ public class ItemManager
 			return 1000;
 		}
 
-		return (int) (getItemComposition(itemID).getPrice() * HIGH_ALCHEMY_CONSTANT);
+		return Math.max(1, (int) (getItemComposition(itemID).getPrice() * HIGH_ALCHEMY_CONSTANT));
 	}
 
 	/**

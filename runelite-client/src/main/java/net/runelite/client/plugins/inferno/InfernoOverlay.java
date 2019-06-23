@@ -44,24 +44,19 @@ public class InfernoOverlay extends Overlay
 {
 	private final Client client;
 	private final InfernoPlugin plugin;
-	private final InfernoConfig config;
-	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	public InfernoOverlay(Client client, InfernoConfig config, InfernoPlugin plugin)
+	public InfernoOverlay(Client client, InfernoPlugin plugin)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);
 		this.client = client;
-		this.config = config;
 		this.plugin = plugin;
 	}
 
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (!client.isInInstancedRegion() || client.getMapRegions()[0] != 9043) return null;
-
 		for (InfernoNPC monster : plugin.getMonsters().values())
 		{
 			NPC npc = monster.getNpc();
@@ -89,9 +84,15 @@ public class InfernoOverlay extends Overlay
 	// renders text location
 	public static void renderTextLocation(Graphics2D graphics, InfernoNPC actor, String text, Color color)
 	{
+		if (Strings.isNullOrEmpty(text))
+		{
+			return;
+		}
+
 		graphics.setFont(new Font("Arial", Font.BOLD, 15));
 		Point textLocation = actor.getNpc().getCanvasTextLocation(graphics, text, actor.textLocHeight + 40);
-		if (Strings.isNullOrEmpty(text))
+
+		if (textLocation == null)
 		{
 			return;
 		}

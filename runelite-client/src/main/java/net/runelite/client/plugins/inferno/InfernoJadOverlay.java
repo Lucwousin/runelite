@@ -29,9 +29,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import javax.inject.Inject;
-
 import net.runelite.api.Client;
-import net.runelite.api.SpriteID;
 import net.runelite.client.game.SpriteManager;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayPosition;
@@ -47,6 +45,8 @@ public class InfernoJadOverlay extends Overlay
 	private final InfernoPlugin plugin;
 	private final SpriteManager spriteManager;
 	private final PanelComponent imagePanelComponent = new PanelComponent();
+	private BufferedImage rangedPray;
+	private BufferedImage magicPray;
 
 	@Inject
 	private InfernoJadOverlay(Client client, InfernoPlugin plugin, SpriteManager spriteManager)
@@ -60,28 +60,44 @@ public class InfernoJadOverlay extends Overlay
 
 	@Override
 	public Dimension render(Graphics2D graphics)
+	{
+		final InfernoJadAttack attack = plugin.getAttack();
+
+		if (attack == null)
 		{
-			final InfernoJadAttack attack = plugin.getAttack();
-
-			if (attack == null)
-				{
-				return null;
-				}
-
-			final BufferedImage prayerImage = getPrayerImage(attack);
-
-			imagePanelComponent.getChildren().clear();
-			imagePanelComponent.getChildren().add(new ImageComponent(prayerImage));
-			imagePanelComponent.setBackgroundColor(client.isPrayerActive(attack.getPrayer())
-					? ComponentConstants.STANDARD_BACKGROUND_COLOR
-					: NOT_ACTIVATED_BACKGROUND_COLOR);
-
-			return imagePanelComponent.render(graphics);
+			return null;
 		}
+
+		final BufferedImage prayerImage;
+		if (attack == InfernoJadAttack.MAGIC)
+		{
+			if (magicPray == null)
+			{
+				magicPray = getPrayerImage(attack);
+			}
+			prayerImage = magicPray;
+		}
+		else
+		{
+			if (rangedPray == null)
+			{
+				rangedPray = getPrayerImage(attack);
+			}
+			prayerImage = rangedPray;
+		}
+
+		imagePanelComponent.getChildren().clear();
+		imagePanelComponent.getChildren().add(new ImageComponent(prayerImage));
+		imagePanelComponent.setBackgroundColor(client.isPrayerActive(attack.getPrayer())
+				? ComponentConstants.STANDARD_BACKGROUND_COLOR
+				: NOT_ACTIVATED_BACKGROUND_COLOR);
+
+		return imagePanelComponent.render(graphics);
+	}
 
 	private BufferedImage getPrayerImage(InfernoJadAttack attack)
-		{
-			final int prayerSpriteID = attack == InfernoJadAttack.MAGIC ? SpriteID.PRAYER_PROTECT_FROM_MAGIC : SpriteID.PRAYER_PROTECT_FROM_MISSILES;
-			return spriteManager.getSprite(prayerSpriteID, 0);
-		}
+	{
+		final int prayerSpriteID = attack.getPrayerSpriteID();
+		return spriteManager.getSprite(prayerSpriteID, 0);
 	}
+}

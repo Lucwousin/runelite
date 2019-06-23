@@ -24,30 +24,45 @@
  */
 package net.runelite.client.plugins.inferno;
 
-import net.runelite.api.AnimationID;
-import net.runelite.api.Prayer;
+	import com.google.common.collect.ImmutableMap;
+	import lombok.Getter;
+	import net.runelite.api.AnimationID;
+	import net.runelite.api.Prayer;
+	import net.runelite.api.SpriteID;
 
+@Getter
 public enum InfernoJadAttack
-	{
-		MAGIC(AnimationID.JALTOK_JAD_MAGE_ATTACK, Prayer.PROTECT_FROM_MAGIC),
-		RANGE(AnimationID.JALTOK_JAD_RANGE_ATTACK, Prayer.PROTECT_FROM_MISSILES);
+{
+	MAGIC(AnimationID.JALTOK_JAD_MAGE_ATTACK, Prayer.PROTECT_FROM_MAGIC, SpriteID.PRAYER_PROTECT_FROM_MAGIC),
+	RANGE(AnimationID.JALTOK_JAD_RANGE_ATTACK, Prayer.PROTECT_FROM_MISSILES, SpriteID.PRAYER_PROTECT_FROM_MISSILES);
 
 	private final int animation;
 	private final Prayer prayer;
+	private final int prayerSpriteID;
 
-	InfernoJadAttack(int animation, Prayer prayer)
-		{
-			this.animation = animation;
-			this.prayer = prayer;
-		}
-
-	public int getAnimation()
-		{
-			return animation;
-		}
-
-	public Prayer getPrayer()
-		{
-			return prayer;
-		}
+	InfernoJadAttack(int animation, Prayer prayer, int prayerSpriteID)
+	{
+		this.animation = animation;
+		this.prayer = prayer;
+		this.prayerSpriteID = prayerSpriteID;
 	}
+
+	private static final ImmutableMap<Integer, InfernoJadAttack> animMap;
+
+	static
+	{
+		ImmutableMap.Builder<Integer, InfernoJadAttack> builder = ImmutableMap.builder();
+
+		for (InfernoJadAttack value : values())
+		{
+			builder.put(value.animation, value);
+		}
+
+		animMap = builder.build();
+	}
+
+	static InfernoJadAttack ofAnimation(int animation)
+	{
+		return animMap.get(animation);
+	}
+}

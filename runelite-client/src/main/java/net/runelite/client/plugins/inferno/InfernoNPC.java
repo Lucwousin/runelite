@@ -40,7 +40,7 @@ public class InfernoNPC
 		RANDOM("Random", Color.ORANGE);
 
 		@Getter
-		private String name = "";
+		private String name;
 
 		@Getter
 		private Color color;

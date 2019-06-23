@@ -34,7 +34,7 @@ public interface InfernoConfig extends Config
 	{
 	@ConfigItem(
 			position = 0,
-			keyName = "Nibbler Overlay",
+			keyName = "nibblerOverlay",
 			name = "Nibbler Overlay",
 			description = "Shows if there are any Nibblers left"
 	)
@@ -45,14 +45,14 @@ public interface InfernoConfig extends Config
 
 	@ConfigItem(
 			position = 1,
-			keyName = "Prayer Helper",
+			keyName = "prayerHelper",
 			name = "Prayer Helper",
 			description = "Tells you what to flick in how many ticks"
 	)
 	default boolean showPrayerHelp()
-		{
-			return false;
-		}
+	{
+		return false;
+	}
 
 	@ConfigItem(
 			position = 2,

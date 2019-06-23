@@ -101,12 +101,11 @@ public class InfernoPlugin extends Plugin
 	@Getter
 	private Map<Integer, ArrayList<InfernoNPC>> monsterCurrentAttackMap;
 
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private List<NPC> nibblers;
 
-	@Getter
+	@Getter(AccessLevel.PACKAGE)
 	private InfernoNPC[] priorityNPC;
-
 
 	@Getter(AccessLevel.PACKAGE)
 	@Nullable
@@ -137,16 +136,7 @@ public class InfernoPlugin extends Plugin
 
 		if (isInInferno())
 		{
-			overlayManager.add(infernoOverlay);
-			overlayManager.add(infernoInfobox);
-			overlayManager.add(nibblerOverlay);
-
-			if (config.waveDisplay() != InfernoWaveDisplayMode.NONE)
-			{
-				overlayManager.add(waveOverlay);
-			}
-
-			overlayManager.add(jadOverlay);
+			addOverlays();
 		}
 
 		waveOverlay.setWaveHeaderColor(config.getWaveOverlayHeaderColor());
@@ -199,6 +189,24 @@ public class InfernoPlugin extends Plugin
 			if (isInInferno() && config.waveDisplay() != InfernoWaveDisplayMode.NONE)
 			{
 				overlayManager.add(waveOverlay);
+			}
+		}
+		else if ("nibblerOverlay".equals(event.getKey()))
+		{
+			overlayManager.remove(nibblerOverlay);
+
+			if (isInInferno() && config.displayNibblerOverlay())
+			{
+				overlayManager.add(nibblerOverlay);
+			}
+		}
+		else if ("prayerHelper".equals(event.getKey()))
+		{
+			overlayManager.remove(infernoInfobox);
+
+			if (isInInferno() && config.showPrayerHelp())
+			{
+				overlayManager.add(infernoInfobox);
 			}
 		}
 	}
@@ -284,16 +292,7 @@ public class InfernoPlugin extends Plugin
 		else if (currentWaveNumber == -1)
 		{
 			currentWaveNumber = 1;
-			overlayManager.add(infernoOverlay);
-			overlayManager.add(infernoInfobox);
-			overlayManager.add(nibblerOverlay);
-
-			if (config.waveDisplay() != InfernoWaveDisplayMode.NONE)
-			{
-				overlayManager.add(waveOverlay);
-			}
-
-			overlayManager.add(jadOverlay);
+			addOverlays();
 		}
 	}
 
@@ -389,14 +388,38 @@ public class InfernoPlugin extends Plugin
 			return;
 		}
 
-		if (jad.getAnimation() == InfernoJadAttack.MAGIC.getAnimation())
+		InfernoJadAttack attack;
+
+		attack = InfernoJadAttack.ofAnimation(event.getActor().getAnimation());
+
+		if (attack == null)
 		{
-			attack = InfernoJadAttack.MAGIC;
+			return;
 		}
-		else if (jad.getAnimation() == InfernoJadAttack.RANGE.getAnimation())
+
+		this.attack = attack;
+	}
+
+	private void addOverlays()
+	{
+		overlayManager.add(infernoOverlay);
+
+		if (config.showPrayerHelp())
 		{
-			attack = InfernoJadAttack.RANGE;
+			overlayManager.add(infernoInfobox);
 		}
+
+		if (config.displayNibblerOverlay())
+		{
+			overlayManager.add(nibblerOverlay);
+		}
+
+		if (config.waveDisplay() != InfernoWaveDisplayMode.NONE)
+		{
+			overlayManager.add(waveOverlay);
+		}
+
+		overlayManager.add(jadOverlay);
 	}
 
 	private void calculatePriorityNPC()
@@ -458,11 +481,6 @@ public class InfernoPlugin extends Plugin
 	private boolean isInInferno()
 	{
 		return ArrayUtils.contains(client.getMapRegions(), INFERNO_REGION);
-	}
-
-	boolean isNotFinalWave()
-	{
-		return currentWaveNumber <= 68;
 	}
 
 	List<Actor> getWaveMonsters()

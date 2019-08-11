@@ -341,7 +341,7 @@ public class WorldMap {
 		this.fonts.put(WorldMapLabelSize.WorldMapLabelSize_medium, var5.get(fontNameVerdana13));
 		this.fonts.put(WorldMapLabelSize.WorldMapLabelSize_large, var5.get(fontNameVerdana15));
 		this.cacheLoader = new WorldMapArchiveLoader(var1);
-		int var7 = this.WorldMap_archive.getGroupId(WorldMapCacheName.field308.name);
+		int var7 = this.WorldMap_archive.getGroupId(WorldMapCacheName.DETAILS.name);
 		int[] var8 = this.WorldMap_archive.getGroupFileIds(var7);
 		this.details = new HashMap(var8.length);
 
@@ -475,9 +475,9 @@ public class WorldMap {
 					}
 
 					if (var9) {
-						PacketBufferNode var12 = Archive.method4265(ClientPacket.field2248, Client.packetWriter.isaacCipher);
+						PacketBufferNode var12 = Archive.getPacketBufferNode(ClientPacket.field2248, Client.packetWriter.isaacCipher);
 						var12.packetBuffer.writeIntME(this.mouseCoord.packed());
-						Client.packetWriter.method2219(var12);
+						Client.packetWriter.addNode(var12);
 						this.field3982 = 0L;
 					}
 				}

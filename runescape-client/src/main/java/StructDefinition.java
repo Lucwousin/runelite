@@ -127,7 +127,7 @@ public class StructDefinition extends DualNode {
 			int var5;
 			int var7;
 			if (var0.field996 >= Client.cycle) {
-				if (var0.field996 == Client.cycle || var0.sequence == -1 || var0.sequenceDelay != 0 || var0.sequenceFrameCycle + 1 > GrandExchangeEvent.getSequenceDefinition(var0.sequence).frameLengths[var0.sequenceFrame]) {
+				if (var0.field996 == Client.cycle || var0.sequence == -1 || var0.sequenceDelay != 0 || var0.sequenceFrameCycle + 1 > GrandExchangeEvent.SequenceDefinition_get(var0.sequence).frameLengths[var0.sequenceFrame]) {
 					var2 = var0.field996 - var0.field995;
 					var3 = Client.cycle - var0.field995;
 					var4 = var0.size * -1342954560 + var0.field991 * 128;
@@ -140,7 +140,7 @@ public class StructDefinition extends DualNode {
 
 				var0.field1007 = 0;
 				var0.orientation = var0.field997;
-				var0.field950 = var0.orientation;
+				var0.rotation = var0.orientation;
 			} else {
 				var0.movementSequence = var0.readySequence;
 				if (var0.pathLength == 0) {
@@ -148,7 +148,7 @@ public class StructDefinition extends DualNode {
 				} else {
 					label434: {
 						if (var0.sequence != -1 && var0.sequenceDelay == 0) {
-							var11 = GrandExchangeEvent.getSequenceDefinition(var0.sequence);
+							var11 = GrandExchangeEvent.SequenceDefinition_get(var0.sequence);
 							if (var0.field1008 > 0 && var11.field3525 == 0) {
 								++var0.field1007;
 								break label434;
@@ -188,7 +188,7 @@ public class StructDefinition extends DualNode {
 
 						byte var13 = var0.pathTraversed[var0.pathLength - 1];
 						if (var4 - var2 <= 256 && var4 - var2 >= -256 && var5 - var3 <= 256 && var5 - var3 >= -256) {
-							var7 = var0.orientation - var0.field950 & 2047;
+							var7 = var0.orientation - var0.rotation & 2047;
 							if (var7 > 1024) {
 								var7 -= 2048;
 							}
@@ -214,7 +214,7 @@ public class StructDefinition extends DualNode {
 							}
 
 							if (var10) {
-								if (var0.orientation != var0.field950 && var0.targetIndex == -1 && var0.field948 != 0) {
+								if (var0.orientation != var0.rotation && var0.targetIndex == -1 && var0.field948 != 0) {
 									var9 = 2;
 								}
 
@@ -308,7 +308,7 @@ public class StructDefinition extends DualNode {
 			var0.method1658();
 		}
 
-		if (Client.localPlayer == var0 && (var0.x < 1536 || var0.y < 1536 || var0.x >= 11776 || var0.y >= 11776)) {
+		if (Client.localPlayer == var0 && (var0.x < 0x600 || var0.y < 0x600 || var0.x >= 0x2e00 || var0.y >= 0x2e00)) {
 			var0.sequence = -1;
 			var0.spotAnimation = -1;
 			var0.field995 = 0;
@@ -319,12 +319,13 @@ public class StructDefinition extends DualNode {
 		}
 
 		Friend.method5226(var0);
-		var0.field967 = false;
+		var0.isWalking = false;
 		if (var0.movementSequence != -1) {
-			var11 = GrandExchangeEvent.getSequenceDefinition(var0.movementSequence);
-			if (var11 != null && var11.frameIds != null) {
-				++var0.movementFrameCycle;
-				if (var0.movementFrame < var11.frameIds.length && var0.movementFrameCycle > var11.frameLengths[var0.movementFrame]) {
+			var11 = GrandExchangeEvent.SequenceDefinition_get(var0.movementSequence);
+			if (var11 == null || var11.frameIds == null) {
+				var0.movementSequence = -1;
+			} else {
+				if (++var0.movementFrame < var11.frameIds.length && var0.movementFrameCycle > var11.frameLengths[var0.movementFrame]) {
 					var0.movementFrameCycle = 1;
 					++var0.movementFrame;
 					WorldMapSection0.addSequenceSoundEffect(var11, var0.movementFrame, var0.x, var0.y);
@@ -335,8 +336,6 @@ public class StructDefinition extends DualNode {
 					var0.movementFrame = 0;
 					WorldMapSection0.addSequenceSoundEffect(var11, var0.movementFrame, var0.x, var0.y);
 				}
-			} else {
-				var0.movementSequence = -1;
 			}
 		}
 
@@ -345,10 +344,14 @@ public class StructDefinition extends DualNode {
 				var0.spotAnimationFrame = 0;
 			}
 
-			var2 = MusicPatch.getSpotAnimationDefinition(var0.spotAnimation).sequence;
-			if (var2 != -1) {
-				SequenceDefinition var12 = GrandExchangeEvent.getSequenceDefinition(var2);
-				if (var12 != null && var12.frameIds != null) {
+			var2 = MusicPatch.SpotAnimationDefinition_get(var0.spotAnimation).sequence;
+			if (var2 == -1) {
+				var0.spotAnimation = -1;
+			} else {
+				SequenceDefinition var12 = GrandExchangeEvent.SequenceDefinition_get(var2);
+				if (var12 == null || var12.frameIds == null) {
+					var0.spotAnimation = -1;
+				} else {
 					++var0.spotAnimationFrameCycle;
 					if (var0.spotAnimationFrame < var12.frameIds.length && var0.spotAnimationFrameCycle > var12.frameLengths[var0.spotAnimationFrame]) {
 						var0.spotAnimationFrameCycle = 1;
@@ -359,16 +362,12 @@ public class StructDefinition extends DualNode {
 					if (var0.spotAnimationFrame >= var12.frameIds.length && (var0.spotAnimationFrame < 0 || var0.spotAnimationFrame >= var12.frameIds.length)) {
 						var0.spotAnimation = -1;
 					}
-				} else {
-					var0.spotAnimation = -1;
 				}
-			} else {
-				var0.spotAnimation = -1;
 			}
 		}
 
 		if (var0.sequence != -1 && var0.sequenceDelay <= 1) {
-			var11 = GrandExchangeEvent.getSequenceDefinition(var0.sequence);
+			var11 = GrandExchangeEvent.SequenceDefinition_get(var0.sequence);
 			if (var11.field3525 == 1 && var0.field1008 > 0 && var0.field995 <= Client.cycle && var0.field996 < Client.cycle) {
 				var0.sequenceDelay = 1;
 				return;
@@ -376,8 +375,10 @@ public class StructDefinition extends DualNode {
 		}
 
 		if (var0.sequence != -1 && var0.sequenceDelay == 0) {
-			var11 = GrandExchangeEvent.getSequenceDefinition(var0.sequence);
-			if (var11 != null && var11.frameIds != null) {
+			var11 = GrandExchangeEvent.SequenceDefinition_get(var0.sequence);
+			if (var11 == null || var11.frameIds == null) {
+				var0.sequence = -1;
+			} else {
 				++var0.sequenceFrameCycle;
 				if (var0.sequenceFrame < var11.frameIds.length && var0.sequenceFrameCycle > var11.frameLengths[var0.sequenceFrame]) {
 					var0.sequenceFrameCycle = 1;
@@ -397,9 +398,7 @@ public class StructDefinition extends DualNode {
 					}
 				}
 
-				var0.field967 = var11.field3526;
-			} else {
-				var0.sequence = -1;
+				var0.isWalking = var11.field3526;
 			}
 		}
 
@@ -414,7 +413,8 @@ public class StructDefinition extends DualNode {
 		signature = "(I)V",
 		garbageValue = "-1674693758"
 	)
-	static final void method4530() {
+	@Export("readNpcUpdates")
+	static final void readNpcUpdates() {
 		PacketBuffer var0 = Client.packetWriter.packetBuffer;
 		var0.importIndex();
 		int var1 = var0.readBits(8);
@@ -437,39 +437,35 @@ public class StructDefinition extends DualNode {
 			if (var5 == 0) {
 				Client.npcIndices[++Client.npcCount - 1] = var3;
 				var4.npcCycle = Client.cycle;
-			} else {
-				int var6 = var0.readBits(2);
-				if (var6 == 0) {
-					Client.npcIndices[++Client.npcCount - 1] = var3;
-					var4.npcCycle = Client.cycle;
+				continue;
+			}
+			int var6 = var0.readBits(2);
+			if (var6 == 0) {
+				Client.npcIndices[++Client.npcCount - 1] = var3;
+				var4.npcCycle = Client.cycle;
+				Client.field859[++Client.field697 - 1] = var3;
+			} else if (var6 == 1) {
+				Client.npcIndices[++Client.npcCount - 1] = var3;
+				var4.npcCycle = Client.cycle;
+				int var7 = var0.readBits(3);
+				var4.method1974(var7, (byte) 1);
+				int var8 = var0.readBits(1);
+				if (var8 == 1) {
 					Client.field859[++Client.field697 - 1] = var3;
-				} else {
-					int var7;
-					int var8;
-					if (var6 == 1) {
-						Client.npcIndices[++Client.npcCount - 1] = var3;
-						var4.npcCycle = Client.cycle;
-						var7 = var0.readBits(3);
-						var4.method1974(var7, (byte)1);
-						var8 = var0.readBits(1);
-						if (var8 == 1) {
-							Client.field859[++Client.field697 - 1] = var3;
-						}
-					} else if (var6 == 2) {
-						Client.npcIndices[++Client.npcCount - 1] = var3;
-						var4.npcCycle = Client.cycle;
-						var7 = var0.readBits(3);
-						var4.method1974(var7, (byte)2);
-						var8 = var0.readBits(3);
-						var4.method1974(var8, (byte)2);
-						int var9 = var0.readBits(1);
-						if (var9 == 1) {
-							Client.field859[++Client.field697 - 1] = var3;
-						}
-					} else if (var6 == 3) {
-						Client.field776[++Client.field775 - 1] = var3;
-					}
 				}
+			} else if (var6 == 2) {
+				Client.npcIndices[++Client.npcCount - 1] = var3;
+				var4.npcCycle = Client.cycle;
+				int var7 = var0.readBits(3);
+				var4.method1974(var7, (byte) 2);
+				int var8 = var0.readBits(3);
+				var4.method1974(var8, (byte) 2);
+				int var9 = var0.readBits(1);
+				if (var9 == 1) {
+					Client.field859[++Client.field697 - 1] = var3;
+				}
+			} else if (var6 == 3) {
+				Client.field776[++Client.field775 - 1] = var3;
 			}
 		}
 

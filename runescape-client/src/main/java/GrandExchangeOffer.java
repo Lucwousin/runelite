@@ -154,12 +154,12 @@ public class GrandExchangeOffer {
 		if (var0 < var1) {
 			int var6 = (var0 + var1) / 2;
 			int var7 = var0;
-			World var8 = World.worlds[var6];
-			World.worlds[var6] = World.worlds[var1];
-			World.worlds[var1] = var8;
+			World var8 = World.World_worlds[var6];
+			World.World_worlds[var6] = World.World_worlds[var1];
+			World.World_worlds[var1] = var8;
 
 			for (int var9 = var0; var9 < var1; ++var9) {
-				World var11 = World.worlds[var9];
+				World var11 = World.World_worlds[var9];
 				int var12 = DynamicObject.compareWorlds(var11, var8, var2, var3);
 				int var10;
 				if (var12 != 0) {
@@ -180,14 +180,14 @@ public class GrandExchangeOffer {
 				}
 
 				if (var10 <= 0) {
-					World var14 = World.worlds[var9];
-					World.worlds[var9] = World.worlds[var7];
-					World.worlds[var7++] = var14;
+					World var14 = World.World_worlds[var9];
+					World.World_worlds[var9] = World.World_worlds[var7];
+					World.World_worlds[var7++] = var14;
 				}
 			}
 
-			World.worlds[var1] = World.worlds[var7];
-			World.worlds[var7] = var8;
+			World.World_worlds[var1] = World.World_worlds[var7];
+			World.World_worlds[var7] = var8;
 			doWorldSorting(var0, var7 - 1, var2, var3, var4, var5);
 			doWorldSorting(var7 + 1, var1, var2, var3, var4, var5);
 		}

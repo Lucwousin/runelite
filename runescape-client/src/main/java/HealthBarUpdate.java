@@ -103,7 +103,8 @@ public class HealthBarUpdate extends Node {
 		signature = "(Lkx;I)V",
 		garbageValue = "-2067523200"
 	)
-	public static void method1671(PacketBuffer var0) {
+	@Export("performReflectionCheck")
+	public static void performReflectionCheck(PacketBuffer var0) {
 		ReflectionCheck var1 = (ReflectionCheck)class96.reflectionChecks.last();
 		if (var1 == null) {
 			return;
@@ -234,10 +235,10 @@ public class HealthBarUpdate extends Node {
 		garbageValue = "-1624187030"
 	)
 	static void method1677() {
-		PacketBufferNode var0 = Archive.method4265(ClientPacket.field2238, Client.packetWriter.isaacCipher);
+		PacketBufferNode var0 = Archive.getPacketBufferNode(ClientPacket.field2238, Client.packetWriter.isaacCipher);
 		var0.packetBuffer.writeByte(AbstractWorldMapIcon.getWindowedMode());
 		var0.packetBuffer.writeShort(GrandExchangeEvent.canvasWidth);
 		var0.packetBuffer.writeShort(ParamDefinition.canvasHeight);
-		Client.packetWriter.method2219(var0);
+		Client.packetWriter.addNode(var0);
 	}
 }

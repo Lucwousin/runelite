@@ -238,7 +238,7 @@ public class Timer {
 			Client.titleLoadingStage = 30;
 		} else if (Client.titleLoadingStage == 30) {
 			class197.archive0 = class65.newArchive(0, false, true, true);
-			class167.archive1 = class65.newArchive(1, false, true, true);
+			JagexCache.archive1 = class65.newArchive(1, false, true, true);
 			class215.archive2 = class65.newArchive(2, true, false, true);
 			class43.archive3 = class65.newArchive(3, false, true, true);
 			class13.archive4 = class65.newArchive(4, false, true, true);
@@ -263,7 +263,7 @@ public class Timer {
 		} else if (Client.titleLoadingStage == 40) {
 			byte var30 = 0;
 			var0 = var30 + class197.archive0.percentage() * 4 / 100;
-			var0 += class167.archive1.percentage() * 4 / 100;
+			var0 += JagexCache.archive1.percentage() * 4 / 100;
 			var0 += class215.archive2.percentage() * 2 / 100;
 			var0 += class43.archive3.percentage() * 2 / 100;
 			var0 += class13.archive4.percentage() * 6 / 100;
@@ -284,7 +284,7 @@ public class Timer {
 			var0 += WorldMapSprite.archive17.method4258() && WorldMapSprite.archive17.isFullyLoaded() ? 1 : 0;
 			if (var0 == 100) {
 				class42.method763(class197.archive0, "Animations");
-				class42.method763(class167.archive1, "Skeletons");
+				class42.method763(JagexCache.archive1, "Skeletons");
 				class42.method763(class13.archive4, "Sound FX");
 				class42.method763(WorldMapCacheName.archive5, "Maps");
 				class42.method763(WorldMapRegion.archive6, "Music Tracks");
@@ -438,7 +438,7 @@ public class Timer {
 				// sequence def inlined
 				Archive var8 = class215.archive2;
 				Archive var9 = class197.archive0;
-				Archive var10 = class167.archive1;
+				Archive var10 = JagexCache.archive1;
 				SequenceDefinition.SequenceDefinition_archive = var8;
 				SequenceDefinition.SequenceDefinition_animationsArchive = var9;
 				SequenceDefinition.SequenceDefinition_skeletonsArchive = var10;

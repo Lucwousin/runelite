@@ -85,7 +85,7 @@ public class UserComparator6 extends AbstractUserComparator {
 			PlayerType.userHomeDirectory = "~/";
 		}
 
-		class167.validCacheLocations = new String[]{"c:/rscache/", "/rscache/", "c:/windows/", "c:/winnt/", "c:/", PlayerType.userHomeDirectory, "/tmp/", ""};
+		JagexCache.JagexCache_validCacheLocations = new String[]{"c:/rscache/", "/rscache/", "c:/windows/", "c:/winnt/", "c:/", PlayerType.userHomeDirectory, "/tmp/", ""};
 		LoginPacket.validCacheNames = new String[]{".jagex_cache_" + TextureProvider.cacheGamebuild, ".file_store_" + TextureProvider.cacheGamebuild};
 
 		int var7;
@@ -124,38 +124,38 @@ public class UserComparator6 extends AbstractUserComparator {
 		try {
 			File var16 = new File(PlayerType.userHomeDirectory, "random.dat");
 			if (var16.exists()) {
-				class167.randomDat = new BufferedFile(new AccessFile(var16, "rw", 25L), 24, 0);
+				JagexCache.JagexCache_randomDat = new BufferedFile(new AccessFile(var16, "rw", 25L), 24, 0);
 			} else {
 				label115:
 				for (int var10 = 0; var10 < LoginPacket.validCacheNames.length; ++var10) {
-					for (var7 = 0; var7 < class167.validCacheLocations.length; ++var7) {
-						var8 = new File(class167.validCacheLocations[var7] + LoginPacket.validCacheNames[var10] + File.separatorChar + "random.dat");
+					for (var7 = 0; var7 < JagexCache.JagexCache_validCacheLocations.length; ++var7) {
+						var8 = new File(JagexCache.JagexCache_validCacheLocations[var7] + LoginPacket.validCacheNames[var10] + File.separatorChar + "random.dat");
 						if (var8.exists()) {
-							class167.randomDat = new BufferedFile(new AccessFile(var8, "rw", 25L), 24, 0);
+							JagexCache.JagexCache_randomDat = new BufferedFile(new AccessFile(var8, "rw", 25L), 24, 0);
 							break label115;
 						}
 					}
 				}
 			}
 
-			if (class167.randomDat == null) {
+			if (JagexCache.JagexCache_randomDat == null) {
 				RandomAccessFile var17 = new RandomAccessFile(var16, "rw");
 				var7 = var17.read();
 				var17.seek(0L);
 				var17.write(var7);
 				var17.seek(0L);
 				var17.close();
-				class167.randomDat = new BufferedFile(new AccessFile(var16, "rw", 25L), 24, 0);
+				JagexCache.JagexCache_randomDat = new BufferedFile(new AccessFile(var16, "rw", 25L), 24, 0);
 			}
 		} catch (IOException var15) {
 		}
 
-		class167.dat2File = new BufferedFile(new AccessFile(class65.getFile("main_file_cache.dat2"), "rw", 1048576000L), 5200, 0);
-		class167.idx255File = new BufferedFile(new AccessFile(class65.getFile("main_file_cache.idx255"), "rw", 1048576L), 6000, 0);
-		class167.idxFiles = new BufferedFile[class40.idxCount];
+		JagexCache.JagexCache_dat2File = new BufferedFile(new AccessFile(class65.getFile("main_file_cache.dat2"), "rw", 1048576000L), 5200, 0);
+		JagexCache.JagexCache_idx255File = new BufferedFile(new AccessFile(class65.getFile("main_file_cache.idx255"), "rw", 1048576L), 6000, 0);
+		JagexCache.JagexCache_idxFiles = new BufferedFile[class40.idxCount];
 
 		for (int var11 = 0; var11 < class40.idxCount; ++var11) {
-			class167.idxFiles[var11] = new BufferedFile(new AccessFile(class65.getFile("main_file_cache.idx" + var11), "rw", 1048576L), 6000, 0);
+			JagexCache.JagexCache_idxFiles[var11] = new BufferedFile(new AccessFile(class65.getFile("main_file_cache.idx" + var11), "rw", 1048576L), 6000, 0);
 		}
 
 	}

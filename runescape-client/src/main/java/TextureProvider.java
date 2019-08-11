@@ -234,15 +234,15 @@ public class TextureProvider implements TextureLoader {
 	@Export("getCacheDir")
 	static File getCacheDir(String var0, String var1, int var2) {
 		String var3 = var2 == 0 ? "" : "" + var2;
-		class167.cacheLocationFile = new File(PlayerType.userHomeDirectory, "jagex_cl_" + var0 + "_" + var1 + var3 + ".dat");
+		JagexCache.JagexCache_locationFile = new File(PlayerType.userHomeDirectory, "jagex_cl_" + var0 + "_" + var1 + var3 + ".dat");
 		String var4 = null;
 		String var5 = null;
 		boolean var6 = false;
 		Buffer var8;
 		File var23;
-		if (class167.cacheLocationFile.exists()) {
+		if (JagexCache.JagexCache_locationFile.exists()) {
 			try {
-				AccessFile var7 = new AccessFile(class167.cacheLocationFile, "rw", 10000L);
+				AccessFile var7 = new AccessFile(JagexCache.JagexCache_locationFile, "rw", 10000L);
 
 				int var9;
 				for (var8 = new Buffer((int)var7.length()); var8.offset < var8.array.length; var8.offset += var9) {
@@ -298,8 +298,8 @@ public class TextureProvider implements TextureLoader {
 		if (var4 == null && var2 == 0) {
 			label139:
 			for (int var15 = 0; var15 < LoginPacket.validCacheNames.length; ++var15) {
-				for (int var16 = 0; var16 < class167.validCacheLocations.length; ++var16) {
-					File var17 = new File(class167.validCacheLocations[var16] + LoginPacket.validCacheNames[var15] + File.separatorChar + var0 + File.separatorChar);
+				for (int var16 = 0; var16 < JagexCache.JagexCache_validCacheLocations.length; ++var16) {
+					File var17 = new File(JagexCache.JagexCache_validCacheLocations[var16] + LoginPacket.validCacheNames[var15] + File.separatorChar + var0 + File.separatorChar);
 					if (var17.exists() && class186.testReadWritePermissions(new File(var17, "test.dat"), true)) {
 						var4 = var17.toString();
 						var6 = true;
@@ -343,7 +343,7 @@ public class TextureProvider implements TextureLoader {
 			var8 = null;
 
 			try {
-				AccessFile var25 = new AccessFile(class167.cacheLocationFile, "rw", 10000L);
+				AccessFile var25 = new AccessFile(JagexCache.JagexCache_locationFile, "rw", 10000L);
 				Buffer var26 = new Buffer(500);
 				var26.writeByte(3);
 				var26.writeByte(var8 != null ? 1 : 0);

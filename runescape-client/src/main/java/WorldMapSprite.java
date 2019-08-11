@@ -129,12 +129,12 @@ public final class WorldMapSprite {
 		}
 
 		class301.writeRandomDat(var2, var1, Client.randomDatData, 0, 24);
-		if (class167.randomDat == null) {
+		if (JagexCache.JagexCache_randomDat == null) {
 			return;
 		}
 		try {
-			class167.randomDat.seek(0L);
-			class167.randomDat.write(var0.array, var1, 24);
+			JagexCache.JagexCache_randomDat.seek(0L);
+			JagexCache.JagexCache_randomDat.write(var0.array, var1, 24);
 		} catch (Exception var4) {
 		}
 

@@ -181,8 +181,8 @@ public class class65 extends RouteStrategy {
 	@Export("newArchive")
 	static Archive newArchive(int var0, boolean var1, boolean var2, boolean var3) {
 		ArchiveDisk var4 = null;
-		if (class167.dat2File != null) {
-			var4 = new ArchiveDisk(var0, class167.dat2File, class167.idxFiles[var0], 1000000);
+		if (JagexCache.JagexCache_dat2File != null) {
+			var4 = new ArchiveDisk(var0, JagexCache.JagexCache_dat2File, JagexCache.JagexCache_idxFiles[var0], 1000000);
 		}
 
 		return new Archive(var4, ScriptEvent.masterDisk, var0, var1, var2, var3);

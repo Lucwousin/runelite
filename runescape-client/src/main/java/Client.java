@@ -1609,7 +1609,7 @@ public final class Client extends GameShell implements Usernamed {
 		this.setUpKeyboard();
 		this.setUpMouse();
 		WorldMapManager.mouseWheel = this.mouseWheel();
-		ScriptEvent.masterDisk = new ArchiveDisk(255, class167.dat2File, class167.idx255File, 500000);
+		ScriptEvent.masterDisk = new ArchiveDisk(255, JagexCache.JagexCache_dat2File, JagexCache.JagexCache_idx255File, 500000);
 		WorldMapLabelSize.clientPreferences = ModelData0.loadClientPreferences();
 		this.setUpClipboard();
 		class218.method4110(this, class60.null_string);
@@ -1904,14 +1904,14 @@ public final class Client extends GameShell implements Usernamed {
 		}
 
 		try {
-			class167.dat2File.close();
+			JagexCache.JagexCache_dat2File.close();
 
 			for (int var1 = 0; var1 < class40.idxCount; ++var1) {
-				class167.idxFiles[var1].close();
+				JagexCache.JagexCache_idxFiles[var1].close();
 			}
 
-			class167.idx255File.close();
-			class167.randomDat.close();
+			JagexCache.JagexCache_idx255File.close();
+			JagexCache.JagexCache_randomDat.close();
 		} catch (Exception var3) {
 		}
 
@@ -2367,8 +2367,8 @@ public final class Client extends GameShell implements Usernamed {
 					byte[] var11 = new byte[24];
 
 					try {
-						class167.randomDat.seek(0L);
-						class167.randomDat.readFully(var11);
+						JagexCache.JagexCache_randomDat.seek(0L);
+						JagexCache.JagexCache_randomDat.readFully(var11);
 
 						for (var12 = 0; var12 < 24 && var11[var12] == 0; ++var12) {
 						}
@@ -2393,7 +2393,7 @@ public final class Client extends GameShell implements Usernamed {
 				var6.packetBuffer.writeByte(clientType);
 				var6.packetBuffer.writeInt(0);
 				var6.packetBuffer.writeInt(class197.archive0.hash);
-				var6.packetBuffer.writeInt(class167.archive1.hash);
+				var6.packetBuffer.writeInt(JagexCache.archive1.hash);
 				var6.packetBuffer.writeInt(class215.archive2.hash);
 				var6.packetBuffer.writeInt(class43.archive3.hash);
 				var6.packetBuffer.writeInt(class13.archive4.hash);

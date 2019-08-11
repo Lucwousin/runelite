@@ -82,7 +82,7 @@ public abstract class RouteStrategy {
 		((TextureProvider)Rasterizer3D.Rasterizer3D_textureLoader).clear();
 		Script.Script_cached.clear();
 		class197.archive0.clearFiles();
-		class167.archive1.clearFiles();
+		JagexCache.archive1.clearFiles();
 		class43.archive3.clearFiles();
 		class13.archive4.clearFiles();
 		WorldMapCacheName.archive5.clearFiles();

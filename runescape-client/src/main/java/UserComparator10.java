@@ -132,8 +132,8 @@ public class UserComparator10 extends AbstractUserComparator {
 				byte[] var12 = new byte[24];
 
 				try {
-					class167.randomDat.seek(0L);
-					class167.randomDat.readFully(var12);
+					JagexCache.JagexCache_randomDat.seek(0L);
+					JagexCache.JagexCache_randomDat.readFully(var12);
 
 					int var13;
 					for (var13 = 0; var13 < 24 && var12[var13] == 0; ++var13) {

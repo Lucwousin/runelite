@@ -108,7 +108,7 @@ public class ConfigManager
 		{
 			properties.load(new InputStreamReader(in, StandardCharsets.UTF_8));
 		}
-		catch (Exception e)
+		catch (IOException e)
 		{
 			log.debug("Malformed properties, skipping update");
 			return;

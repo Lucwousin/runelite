@@ -41,9 +41,9 @@ public class AudioEnvelopeDefinition
 	public AudioEnvelopeDefinition()
 	{
 		this.durations[0] = 0;
-		this.durations[1] = '\uffff';
+		this.durations[1] = 0xffff;
 		this.phases[0] = 0;
-		this.phases[1] = '\uffff';
+		this.phases[1] = 0xffff;
 	}
 
 	public final int step(int var1)

@@ -22,7 +22,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.api;
+package net.runelite.api.menus;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -83,16 +83,32 @@ public class MenuEntry
 			src.getType(),
 			src.getParam0(),
 			src.getParam1(),
-			src.isForceLeftClick()
+			src.isForceLeftClick(),
+			false,
+			false
 		);
 	}
 
 	private static final Matcher TAG_REGEXP = Pattern.compile("<[^>]*>").matcher("");
+	public String getOption()
+	{
+		if (!standardizedOption)
+		{
+			option = standardize(option);
+		}
+		return option;
+	}
+	public String getTarget()
+	{
+		if (!standardizedTarget)
+		{
+			target = standardize(LEVEL_MATCHER.reset(target).replaceAll(""));
+		}
+		return target;
+	}
 
-	@Getter(lazy = true)
-	private final String standardizedOption = standardize(option);
-	@Getter(lazy = true)
-	private final String standardizedTarget = standardize(LEVEL_MATCHER.reset(target).replaceAll(""));
+	private boolean standardizedOption = false;
+	private boolean standardizedTarget = false;
 
 	public String standardize(String string)
 	{

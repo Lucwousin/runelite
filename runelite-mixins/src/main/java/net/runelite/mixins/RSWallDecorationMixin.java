@@ -40,21 +40,21 @@ public abstract class RSWallDecorationMixin implements RSWallDecoration
 	@Override
 	public RSModel getModel1()
 	{
-		RSEntity renderable = getRenderable();
-		if (renderable == null)
+		RSEntity entity = getEntity();
+		if (entity == null)
 		{
 			return null;
 		}
 
 		RSModel model;
 
-		if (renderable instanceof Model)
+		if (entity instanceof Model)
 		{
-			model = (RSModel) renderable;
+			model = (RSModel) entity;
 		}
 		else
 		{
-			model = renderable.getModel();
+			model = entity.getModel();
 		}
 
 		return model;
@@ -64,21 +64,21 @@ public abstract class RSWallDecorationMixin implements RSWallDecoration
 	@Override
 	public RSModel getModel2()
 	{
-		RSEntity renderable = getRenderable2();
-		if (renderable == null)
+		RSEntity entity = getEntity2();
+		if (entity == null)
 		{
 			return null;
 		}
 
 		RSModel model;
 
-		if (renderable instanceof Model)
+		if (entity instanceof Model)
 		{
-			model = (RSModel) renderable;
+			model = (RSModel) entity;
 		}
 		else
 		{
-			model = renderable.getModel();
+			model = entity.getModel();
 		}
 
 		return model;

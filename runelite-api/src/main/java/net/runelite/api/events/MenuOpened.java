@@ -24,7 +24,7 @@
  */
 package net.runelite.api.events;
 
-import net.runelite.api.MenuEntry;
+import net.runelite.api.menus.MenuEntry;
 import lombok.Data;
 
 /**

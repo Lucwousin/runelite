@@ -40,16 +40,16 @@ import net.runelite.api.Ignore;
 import net.runelite.api.IndexDataBase;
 import net.runelite.api.IndexedSprite;
 import net.runelite.api.InventoryID;
-import net.runelite.api.MenuAction;
-import static net.runelite.api.MenuAction.PLAYER_EIGTH_OPTION;
-import static net.runelite.api.MenuAction.PLAYER_FIFTH_OPTION;
-import static net.runelite.api.MenuAction.PLAYER_FIRST_OPTION;
-import static net.runelite.api.MenuAction.PLAYER_FOURTH_OPTION;
-import static net.runelite.api.MenuAction.PLAYER_SECOND_OPTION;
-import static net.runelite.api.MenuAction.PLAYER_SEVENTH_OPTION;
-import static net.runelite.api.MenuAction.PLAYER_SIXTH_OPTION;
-import static net.runelite.api.MenuAction.PLAYER_THIRD_OPTION;
-import net.runelite.api.MenuEntry;
+import net.runelite.api.menus.MenuOpcode;
+import static net.runelite.api.menus.MenuOpcode.PLAYER_EIGTH_OPTION;
+import static net.runelite.api.menus.MenuOpcode.PLAYER_FIFTH_OPTION;
+import static net.runelite.api.menus.MenuOpcode.PLAYER_FIRST_OPTION;
+import static net.runelite.api.menus.MenuOpcode.PLAYER_FOURTH_OPTION;
+import static net.runelite.api.menus.MenuOpcode.PLAYER_SECOND_OPTION;
+import static net.runelite.api.menus.MenuOpcode.PLAYER_SEVENTH_OPTION;
+import static net.runelite.api.menus.MenuOpcode.PLAYER_SIXTH_OPTION;
+import static net.runelite.api.menus.MenuOpcode.PLAYER_THIRD_OPTION;
+import net.runelite.api.menus.MenuEntry;
 import net.runelite.api.MessageNode;
 import net.runelite.api.NPC;
 import net.runelite.api.Node;
@@ -647,9 +647,9 @@ public abstract class RSClientMixin implements RSClient
 		String[] menuOptions = getMenuOptions();
 		String[] menuTargets = getMenuTargets();
 		int[] menuIdentifiers = getMenuIdentifiers();
-		int[] menuTypes = getMenuTypes();
-		int[] params0 = getMenuActionParams0();
-		int[] params1 = getMenuActionParams1();
+		int[] menuTypes = getMenuOpcodes();
+		int[] params0 = getMenuArguments1();
+		int[] params1 = getMenuArguments2();
 		boolean[] leftClick = getMenuForceLeftClick();
 
 		MenuEntry[] entries = new MenuEntry[count];
@@ -675,9 +675,9 @@ public abstract class RSClientMixin implements RSClient
 		String[] menuOptions = getMenuOptions();
 		String[] menuTargets = getMenuTargets();
 		int[] menuIdentifiers = getMenuIdentifiers();
-		int[] menuTypes = getMenuTypes();
-		int[] params0 = getMenuActionParams0();
-		int[] params1 = getMenuActionParams1();
+		int[] menuTypes = getMenuOpcodes();
+		int[] params0 = getMenuArguments1();
+		int[] params1 = getMenuArguments2();
 		boolean[] leftClick = getMenuForceLeftClick();
 
 		for (MenuEntry entry : entries)
@@ -717,10 +717,12 @@ public abstract class RSClientMixin implements RSClient
 					client.getMenuOptions()[oldCount],
 					client.getMenuTargets()[oldCount],
 					client.getMenuIdentifiers()[oldCount],
-					client.getMenuTypes()[oldCount],
-					client.getMenuActionParams0()[oldCount],
-					client.getMenuActionParams1()[oldCount],
-					client.getMenuForceLeftClick()[oldCount]
+					client.getMenuOpcodes()[oldCount],
+					client.getMenuArguments1()[oldCount],
+					client.getMenuArguments2()[oldCount],
+					client.getMenuForceLeftClick()[oldCount],
+					false,
+					false
 				)
 			);
 
@@ -1035,11 +1037,11 @@ public abstract class RSClientMixin implements RSClient
 	public static void playerOptionsChanged(int idx)
 	{
 		// Reset the menu type
-		MenuAction[] playerActions = {PLAYER_FIRST_OPTION, PLAYER_SECOND_OPTION, PLAYER_THIRD_OPTION, PLAYER_FOURTH_OPTION,
+		MenuOpcode[] playerActions = {PLAYER_FIRST_OPTION, PLAYER_SECOND_OPTION, PLAYER_THIRD_OPTION, PLAYER_FOURTH_OPTION,
 			PLAYER_FIFTH_OPTION, PLAYER_SIXTH_OPTION, PLAYER_SEVENTH_OPTION, PLAYER_EIGTH_OPTION};
 		if (idx >= 0 && idx < playerActions.length)
 		{
-			MenuAction playerAction = playerActions[idx];
+			MenuOpcode playerAction = playerActions[idx];
 			client.getPlayerMenuTypes()[idx] = playerAction.getId();
 		}
 
@@ -1326,6 +1328,8 @@ public abstract class RSClientMixin implements RSClient
 				menuAction,
 				actionParam,
 				widgetId,
+				false,
+				false,
 				false
 			),
 			authentic
@@ -1634,8 +1638,8 @@ public abstract class RSClientMixin implements RSClient
 		int len = getMenuOptionCount();
 		if (len > 0)
 		{
-			int type = getMenuTypes()[len - 1];
-			return type == MenuAction.RUNELITE_OVERLAY.getId();
+			int type = getMenuOpcodes()[len - 1];
+			return type == MenuOpcode.RUNELITE_OVERLAY.getId();
 		}
 
 		return false;

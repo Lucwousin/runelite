@@ -47,8 +47,8 @@ import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import static net.runelite.api.Constants.CHUNK_SIZE;
 import net.runelite.api.GameState;
-import net.runelite.api.MenuAction;
-import net.runelite.api.MenuEntry;
+import net.runelite.api.menus.MenuOpcode;
+import net.runelite.api.menus.MenuEntry;
 import net.runelite.api.Tile;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
@@ -320,7 +320,7 @@ public class GroundMarkerPlugin extends Plugin
 				final String option = (stream.isPresent() && stream.get().getGroup() == i) ? UNMARK : MARK;
 				menuEntry.setOption(ColorUtil.prependColorTag(Text.removeTags(option + (i == 1 ? "" : " (Group " + i + ")")), getColor(i)));
 				menuEntry.setTarget(event.getTarget());
-				menuEntry.setType(MenuAction.RUNELITE.getId());
+				menuEntry.setType(MenuOpcode.RUNELITE.getId());
 
 				lastIndex++;
 			}

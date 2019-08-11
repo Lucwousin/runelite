@@ -24,8 +24,8 @@ import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.Friend;
 import net.runelite.api.Ignore;
-import net.runelite.api.MenuAction;
-import net.runelite.api.MenuEntry;
+import net.runelite.api.menus.MenuOpcode;
+import net.runelite.api.menus.MenuEntry;
 import net.runelite.api.Nameable;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOptionClicked;
@@ -131,7 +131,7 @@ public class FriendTaggingPlugin extends Plugin
 			// Build "Add Note" or "Edit Note" menu entry
 			final MenuEntry entry = new MenuEntry();
 			entry.setOption(friendName == null || getTag(friendName) == null ? ADD_TAG : DELETE_TAG);
-			entry.setType(MenuAction.RUNELITE.getId());
+			entry.setType(MenuOpcode.RUNELITE.getId());
 			entry.setTarget(event.getTarget()); //Preserve color codes here
 			entry.setParam0(event.getActionParam0());
 			entry.setParam1(event.getActionParam1());

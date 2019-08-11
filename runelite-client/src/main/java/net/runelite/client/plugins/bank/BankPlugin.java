@@ -38,7 +38,7 @@ import net.runelite.api.Client;
 import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
 import net.runelite.api.ItemContainer;
-import net.runelite.api.MenuEntry;
+import net.runelite.api.menus.MenuEntry;
 import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.Varbits;
 import net.runelite.api.events.ItemContainerChanged;

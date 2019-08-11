@@ -627,15 +627,15 @@ public abstract class RSSceneMixin implements RSScene
 				return;
 			}
 
-			RSTileModel sceneTileModel = (RSTileModel) tile;
+			RSTileModel tileModel = (RSTileModel) tile;
 
-			final int[] faceX = sceneTileModel.getFaceX();
-			final int[] faceY = sceneTileModel.getFaceY();
-			final int[] faceZ = sceneTileModel.getFaceZ();
+			final int[] faceX = tileModel.getFaceX();
+			final int[] faceY = tileModel.getFaceY();
+			final int[] faceZ = tileModel.getFaceZ();
 
-			final int[] vertexX = sceneTileModel.getVertexX();
-			final int[] vertexY = sceneTileModel.getVertexY();
-			final int[] vertexZ = sceneTileModel.getVertexZ();
+			final int[] vertexX = tileModel.getVertexX();
+			final int[] vertexY = tileModel.getVertexY();
+			final int[] vertexZ = tileModel.getVertexZ();
 
 			final int vertexCount = vertexX.length;
 			final int faceCount = faceX.length;

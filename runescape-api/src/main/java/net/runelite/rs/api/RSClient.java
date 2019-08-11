@@ -315,13 +315,13 @@ public interface RSClient extends RSGameShell, Client
 	int[] getMenuIdentifiers();
 
 	@Import("menuOpcodes")
-	int[] getMenuTypes();
+	int[] getMenuOpcodes();
 
 	@Import("menuArguments1")
-	int[] getMenuActionParams0();
+	int[] getMenuArguments1();
 
 	@Import("menuArguments2")
-	int[] getMenuActionParams1();
+	int[] getMenuArguments2();
 
 	@Import("menuShiftClick")
 	boolean[] getMenuForceLeftClick();
@@ -608,9 +608,6 @@ public interface RSClient extends RSGameShell, Client
 
 	@Import("ObjectDefinition_isLowDetail")
 	void setObjectDefinitionLowDetail(boolean lowDetail);
-
-	@Construct
-	RSTileItem createItem();
 
 	@Import("Interpreter_intStackSize")
 	@Override

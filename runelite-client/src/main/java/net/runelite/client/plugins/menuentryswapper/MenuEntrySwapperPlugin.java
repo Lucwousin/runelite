@@ -50,10 +50,10 @@ import net.runelite.api.GameState;
 import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
 import net.runelite.api.ItemDefinition;
-import net.runelite.api.MenuAction;
-import static net.runelite.api.MenuAction.MENU_ACTION_DEPRIORITIZE_OFFSET;
-import static net.runelite.api.MenuAction.WALK;
-import net.runelite.api.MenuEntry;
+import net.runelite.api.menus.MenuOpcode;
+import static net.runelite.api.menus.MenuOpcode.MENU_ACTION_DEPRIORITIZE_OFFSET;
+import static net.runelite.api.menus.MenuOpcode.WALK;
+import net.runelite.api.menus.MenuEntry;
 import net.runelite.api.NPC;
 import net.runelite.api.Player;
 import net.runelite.api.Varbits;
@@ -142,9 +142,9 @@ public class MenuEntrySwapperPlugin extends Plugin
 		MENU_TARGET, WidgetInfo.RESIZABLE_VIEWPORT_BOTTOM_LINE_INVENTORY_TAB);
 	private static final WidgetMenuOption RESIZABLE_BOTTOM_LINE_INVENTORY_TAB_SAVE = new WidgetMenuOption(SAVE,
 		MENU_TARGET, WidgetInfo.RESIZABLE_VIEWPORT_BOTTOM_LINE_INVENTORY_TAB);
-	private static final Set<MenuAction> NPC_MENU_TYPES = ImmutableSet.of(
-		MenuAction.NPC_FIRST_OPTION, MenuAction.NPC_SECOND_OPTION, MenuAction.NPC_THIRD_OPTION,
-		MenuAction.NPC_FOURTH_OPTION, MenuAction.NPC_FIFTH_OPTION, MenuAction.EXAMINE_NPC
+	private static final Set<MenuOpcode> NPC_MENU_TYPES = ImmutableSet.of(
+		MenuOpcode.NPC_FIRST_OPTION, MenuOpcode.NPC_SECOND_OPTION, MenuOpcode.NPC_THIRD_OPTION,
+		MenuOpcode.NPC_FOURTH_OPTION, MenuOpcode.NPC_FIFTH_OPTION, MenuOpcode.EXAMINE_NPC
 	);
 	private static final Splitter NEWLINE_SPLITTER = Splitter
 		.on("\n")
@@ -635,7 +635,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		{
 			if (itemName.equals(Text.removeTags(entry.getTarget())))
 			{
-				entry.setType(MenuAction.RUNELITE.getId());
+				entry.setType(MenuOpcode.RUNELITE.getId());
 
 				if (option.equals(entry.getOption()))
 				{
@@ -649,13 +649,13 @@ public class MenuEntrySwapperPlugin extends Plugin
 		resetShiftClickEntry.setTarget(MENU_TARGET);
 		resetShiftClickEntry.setIdentifier(itemId);
 		resetShiftClickEntry.setParam1(widgetId);
-		resetShiftClickEntry.setType(MenuAction.RUNELITE.getId());
+		resetShiftClickEntry.setType(MenuOpcode.RUNELITE.getId());
 		client.setMenuEntries(ArrayUtils.addAll(entries, resetShiftClickEntry));
 	}
 
 	private void onMenuOptionClicked(MenuOptionClicked event)
 	{
-		if (event.getMenuAction() != MenuAction.RUNELITE || event.getActionParam1() != WidgetInfo.INVENTORY.getId())
+		if (event.getMenuOpcode() != MenuOpcode.RUNELITE || event.getActionParam1() != WidgetInfo.INVENTORY.getId())
 		{
 			return;
 		}
@@ -755,7 +755,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 			{
 				MenuEntry[] menuEntries = client.getMenuEntries();
 				MenuEntry menuEntry = menuEntries[menuEntries.length - 1];
-				menuEntry.setType(MenuAction.WALK.getId() + MENU_ACTION_DEPRIORITIZE_OFFSET);
+				menuEntry.setType(MenuOpcode.WALK.getId() + MENU_ACTION_DEPRIORITIZE_OFFSET);
 				client.setMenuEntries(menuEntries);
 			}
 			else if (option.equalsIgnoreCase("examine"))
@@ -770,7 +770,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 		if (hintArrowNpc != null
 			&& hintArrowNpc.getIndex() == eventId
-			&& NPC_MENU_TYPES.contains(MenuAction.of(event.getType())))
+			&& NPC_MENU_TYPES.contains(MenuOpcode.of(event.getType())))
 		{
 			return;
 		}

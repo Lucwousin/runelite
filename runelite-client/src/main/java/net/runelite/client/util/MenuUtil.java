@@ -31,7 +31,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
-import net.runelite.api.MenuEntry;
+import net.runelite.api.menus.MenuEntry;
 
 @Deprecated
 @Slf4j

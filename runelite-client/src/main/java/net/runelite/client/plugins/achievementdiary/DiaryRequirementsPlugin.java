@@ -229,7 +229,7 @@ public class DiaryRequirementsPlugin extends Plugin
 	private GenericDiaryRequirement getRequirementsForTitle(String title)
 	{
 		String diaryName = Text.removeTags(title
-			.replaceAll(" ", "_")
+			.replace(' ', '_')
 			.toUpperCase());
 
 		GenericDiaryRequirement diaryRequirementContainer;

@@ -406,7 +406,7 @@ public class BanListPlugin extends Plugin
 			{
 				String text = response.body().string();
 				text = text.substring(text.indexOf("<p>") + 3, text.indexOf("</p>"));
-				text = text.replace("/", ",");
+				text = text.replace('/', ',');
 				text = text.replace(", $", "");
 
 				ArrayList<String> wdrList = new ArrayList<>(Arrays.asList(text.split(",")));
@@ -463,7 +463,7 @@ public class BanListPlugin extends Plugin
 			{
 				String text = response.body().string();
 				text = text.substring(text.indexOf("<p>") + 3, text.indexOf("</p>"));
-				text = text.replace("/", ",");
+				text = text.replace('/', ',');
 				text = text.replace(", $", "");
 
 				ArrayList<String> wdrToxicList = new ArrayList<>(Arrays.asList(text.split(",")));

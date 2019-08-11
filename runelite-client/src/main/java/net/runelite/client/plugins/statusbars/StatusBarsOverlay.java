@@ -28,7 +28,7 @@ import com.google.common.base.Strings;
 import com.google.common.primitives.Ints;
 import javax.inject.Singleton;
 import net.runelite.api.Client;
-import net.runelite.api.MenuEntry;
+import net.runelite.api.menus.MenuEntry;
 import net.runelite.api.Point;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;

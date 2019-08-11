@@ -32,8 +32,8 @@ import javax.inject.Inject;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.ItemID;
-import net.runelite.api.MenuAction;
-import net.runelite.api.MenuEntry;
+import net.runelite.api.menus.MenuOpcode;
+import net.runelite.api.menus.MenuEntry;
 import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.widgets.Widget;
@@ -93,9 +93,11 @@ public class ExaminePluginTest
 			"Examine",
 			"Something",
 			ItemID.ABYSSAL_WHIP,
-			MenuAction.EXAMINE_ITEM.getId(),
+			MenuOpcode.EXAMINE_ITEM.getId(),
 			123,
 			456,
+			false,
+			false,
 			false
 		));
 		examinePlugin.onMenuOptionClicked(menuOptionClicked);
@@ -116,9 +118,11 @@ public class ExaminePluginTest
 			"Examine",
 			"Something",
 			ItemID.ABYSSAL_WHIP,
-			MenuAction.EXAMINE_ITEM.getId(),
+			MenuOpcode.EXAMINE_ITEM.getId(),
 			123,
 			456,
+			false,
+			false,
 			false
 		));
 

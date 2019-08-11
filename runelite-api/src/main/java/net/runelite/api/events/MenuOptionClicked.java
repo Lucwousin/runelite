@@ -27,8 +27,8 @@ package net.runelite.api.events;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
-import net.runelite.api.MenuAction;
-import net.runelite.api.MenuEntry;
+import net.runelite.api.menus.MenuOpcode;
+import net.runelite.api.menus.MenuEntry;
 
 /**
  * An event where a menu option has been clicked.
@@ -78,7 +78,7 @@ public class MenuOptionClicked implements Event
 	}
 
 	/**
-	 * MenuAction but int-ish
+	 * MenuOpcode but int-ish
 	 */
 	public int getType()
 	{
@@ -117,9 +117,9 @@ public class MenuOptionClicked implements Event
 	/**
 	 * The action performed.
 	 */
-	public MenuAction getMenuAction()
+	public MenuOpcode getMenuOpcode()
 	{
-		return MenuAction.of(getType());
+		return MenuOpcode.of(getType());
 	}
 
 	/**

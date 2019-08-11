@@ -26,7 +26,7 @@ package net.runelite.api.events;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import net.runelite.api.MenuEntry;
+import net.runelite.api.menus.MenuEntry;
 
 /**
  * An event when a new entry is added to a right-click menu.

@@ -1,7 +1,7 @@
 package net.runelite.client.plugins.menuentryswapper;
 
 import lombok.EqualsAndHashCode;
-import net.runelite.api.MenuEntry;
+import net.runelite.api.menus.MenuEntry;
 import net.runelite.api.widgets.WidgetID;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.menus.AbstractComparableEntry;

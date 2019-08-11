@@ -126,9 +126,9 @@ public class Experience
 
 	private static double getMeleeRangeOrMagicCombatLevelContribution(int attackLevel, int strengthLevel, int magicLevel, int rangeLevel)
 	{
-		double melee = 0.325 * (attackLevel + strengthLevel);
-		double range = 0.325 * (Math.floor(rangeLevel / 2) + rangeLevel);
-		double magic = 0.325 * (Math.floor(magicLevel / 2) + magicLevel);
+		double melee = 0.325d * (double) (attackLevel + strengthLevel);
+		double range = 0.325d * (double) (rangeLevel / 2 + rangeLevel);
+		double magic = 0.325d * (double) (magicLevel / 2 + magicLevel);
 
 		return Math.max(melee, Math.max(range, magic));
 	}
@@ -152,7 +152,7 @@ public class Experience
 		int defenceLevel, int hitpointsLevel, int magicLevel,
 		int rangeLevel, int prayerLevel)
 	{
-		double base = 0.25 * (defenceLevel + hitpointsLevel + Math.floor(prayerLevel / 2));
+		double base = 0.25d * (defenceLevel + hitpointsLevel + (prayerLevel / 2d));
 
 		double typeContribution = getMeleeRangeOrMagicCombatLevelContribution(attackLevel, strengthLevel, magicLevel, rangeLevel);
 
@@ -194,7 +194,7 @@ public class Experience
 		int magicLevel, int rangeLevel, int prayerLevel)
 	{
 		int nextCombatLevel = Experience.getCombatLevel(attackLevel, strengthLevel, defenceLevel, hitpointsLevel, magicLevel, rangeLevel, prayerLevel) + 1;
-		return (int) Math.ceil(-10. / 13 * (defenceLevel + hitpointsLevel + Math.floor(prayerLevel / 2) - 4 * nextCombatLevel)) - strengthLevel - attackLevel;
+		return (int) Math.ceil(-10. / 13 * (defenceLevel + hitpointsLevel + (prayerLevel / 2) - 4 * nextCombatLevel)) - strengthLevel - attackLevel;
 	}
 
 	/**
@@ -214,7 +214,7 @@ public class Experience
 	{
 		int nextCombatLevel = Experience.getCombatLevel(attackLevel, strengthLevel, defenceLevel, hitpointsLevel, magicLevel, rangeLevel, prayerLevel) + 1;
 		double typeContribution = Experience.getMeleeRangeOrMagicCombatLevelContribution(attackLevel, strengthLevel, magicLevel, rangeLevel);
-		return (int) Math.ceil(4 * nextCombatLevel - Math.floor(prayerLevel / 2) - 4 * typeContribution) - hitpointsLevel - defenceLevel;
+		return (int) Math.ceil(4 * nextCombatLevel - (prayerLevel / 2) - 4 * typeContribution) - hitpointsLevel - defenceLevel;
 	}
 
 	/**
@@ -233,7 +233,7 @@ public class Experience
 		int magicLevel, int rangeLevel, int prayerLevel)
 	{
 		int nextCombatLevel = Experience.getCombatLevel(attackLevel, strengthLevel, defenceLevel, hitpointsLevel, magicLevel, rangeLevel, prayerLevel) + 1;
-		return (int) Math.ceil(2. / 3 * Math.ceil(-10. / 13 * (hitpointsLevel + defenceLevel - 4 * nextCombatLevel + Math.floor(prayerLevel / 2)))) - magicLevel;
+		return (int) Math.ceil(2. / 3 * Math.ceil(-10. / 13 * (hitpointsLevel + defenceLevel - 4 * nextCombatLevel + (prayerLevel / 2)))) - magicLevel;
 	}
 
 	/**
@@ -252,7 +252,7 @@ public class Experience
 		int magicLevel, int rangeLevel, int prayerLevel)
 	{
 		int nextCombatLevel = Experience.getCombatLevel(attackLevel, strengthLevel, defenceLevel, hitpointsLevel, magicLevel, rangeLevel, prayerLevel) + 1;
-		return (int) Math.ceil(2. / 3 * Math.ceil(-10. / 13 * (hitpointsLevel + defenceLevel - 4 * nextCombatLevel + Math.floor(prayerLevel / 2)))) - rangeLevel;
+		return (int) Math.ceil(2. / 3 * Math.ceil(-10. / 13 * (hitpointsLevel + defenceLevel - 4 * nextCombatLevel + (prayerLevel / 2)))) - rangeLevel;
 	}
 
 	/**

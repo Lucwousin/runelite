@@ -49,7 +49,7 @@ import net.runelite.api.Actor;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.ItemID;
-import net.runelite.api.MenuEntry;
+import net.runelite.api.menus.MenuEntry;
 import net.runelite.api.MessageNode;
 import net.runelite.api.NPC;
 import net.runelite.api.Player;

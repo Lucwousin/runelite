@@ -32,8 +32,8 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import net.runelite.api.Client;
-import net.runelite.api.MenuAction;
-import net.runelite.api.MenuEntry;
+import net.runelite.api.menus.MenuOpcode;
+import net.runelite.api.menus.MenuEntry;
 import net.runelite.api.events.ConfigChanged;
 import net.runelite.api.events.MenuOpened;
 import net.runelite.api.events.MenuOptionClicked;
@@ -182,7 +182,7 @@ public class InventoryTagsPlugin extends Plugin
 
 	private void onMenuOptionClicked(final MenuOptionClicked event)
 	{
-		if (event.getMenuAction() != MenuAction.RUNELITE)
+		if (event.getMenuOpcode() != MenuOpcode.RUNELITE)
 		{
 			return;
 		}
@@ -235,7 +235,7 @@ public class InventoryTagsPlugin extends Plugin
 				newMenu.setTarget(ColorUtil.prependColorTag(groupName, MoreObjects.firstNonNull(color, Color.WHITE)));
 				newMenu.setIdentifier(itemId);
 				newMenu.setParam1(widgetId);
-				newMenu.setType(MenuAction.RUNELITE.getId());
+				newMenu.setType(MenuOpcode.RUNELITE.getId());
 				menuList[num++] = newMenu;
 			}
 

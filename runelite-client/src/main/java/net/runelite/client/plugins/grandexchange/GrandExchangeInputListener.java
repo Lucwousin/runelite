@@ -30,7 +30,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.swing.SwingUtilities;
 import net.runelite.api.Client;
-import net.runelite.api.MenuEntry;
+import net.runelite.api.menus.MenuEntry;
 import net.runelite.client.input.KeyListener;
 import net.runelite.client.input.MouseAdapter;
 import static net.runelite.client.plugins.grandexchange.GrandExchangePlugin.SEARCH_GRAND_EXCHANGE;

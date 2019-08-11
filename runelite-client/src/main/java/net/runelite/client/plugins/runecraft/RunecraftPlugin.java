@@ -42,7 +42,7 @@ import net.runelite.api.GameState;
 import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
 import net.runelite.api.ItemID;
-import net.runelite.api.MenuEntry;
+import net.runelite.api.menus.MenuEntry;
 import net.runelite.api.NPC;
 import net.runelite.api.NpcID;
 import net.runelite.api.events.ChatMessage;

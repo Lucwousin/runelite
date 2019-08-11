@@ -193,7 +193,7 @@ public class SpellbookPlugin extends Plugin
 
 	private static String removeFlyingComma(String s)
 	{
-		return s.replaceAll("\"", "");
+		return s.replace("\"", "");
 	}
 
 	@Provides

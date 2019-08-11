@@ -37,6 +37,7 @@ import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.hooks.Callbacks;
 import net.runelite.api.hooks.DrawCallbacks;
+import net.runelite.api.menus.MenuEntry;
 import net.runelite.api.vars.AccountType;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;

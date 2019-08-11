@@ -27,7 +27,7 @@ package net.runelite.client.plugins.grounditems;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.runelite.api.MenuEntry;
+import net.runelite.api.menus.MenuEntry;
 
 @RequiredArgsConstructor
 class MenuEntryWithCount

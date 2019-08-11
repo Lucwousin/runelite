@@ -35,9 +35,9 @@ import net.runelite.api.Actor;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
-import net.runelite.api.MenuAction;
-import static net.runelite.api.MenuAction.MENU_ACTION_DEPRIORITIZE_OFFSET;
-import net.runelite.api.MenuEntry;
+import net.runelite.api.menus.MenuOpcode;
+import static net.runelite.api.menus.MenuOpcode.MENU_ACTION_DEPRIORITIZE_OFFSET;
+import net.runelite.api.menus.MenuEntry;
 import net.runelite.api.NPC;
 import net.runelite.api.NpcID;
 import net.runelite.api.Varbits;
@@ -66,7 +66,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 @Slf4j
 public class CorpPlugin extends Plugin
 {
-	private static final int NPC_SECTION_ACTION = MenuAction.NPC_SECOND_OPTION.getId();
+	private static final int NPC_SECTION_ACTION = MenuOpcode.NPC_SECOND_OPTION.getId();
 	private static final String ATTACK = "Attack";
 	private static final String DARK_ENERGY_CORE = "Dark energy core";
 

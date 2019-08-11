@@ -33,7 +33,7 @@ import net.runelite.api.EquipmentInventorySlot;
 import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
 import net.runelite.api.ItemContainer;
-import net.runelite.api.MenuEntry;
+import net.runelite.api.menus.MenuEntry;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.game.ItemManager;

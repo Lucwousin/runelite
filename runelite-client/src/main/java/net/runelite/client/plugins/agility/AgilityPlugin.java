@@ -39,8 +39,8 @@ import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.ItemID;
 import static net.runelite.api.ItemID.AGILITY_ARENA_TICKET;
-import net.runelite.api.MenuAction;
-import net.runelite.api.MenuEntry;
+import net.runelite.api.menus.MenuOpcode;
+import net.runelite.api.menus.MenuEntry;
 import net.runelite.api.Player;
 import net.runelite.api.Skill;
 import static net.runelite.api.Skill.AGILITY;
@@ -502,7 +502,7 @@ public class AgilityPlugin extends Plugin
 		}
 
 		//Guarding against non-first option because agility shortcuts are always that type of event.
-		if (event.getType() != MenuAction.GAME_OBJECT_FIRST_OPTION.getId())
+		if (event.getType() != MenuOpcode.GAME_OBJECT_FIRST_OPTION.getId())
 		{
 			return;
 		}

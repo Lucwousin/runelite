@@ -47,9 +47,9 @@ import javax.inject.Singleton;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
-import net.runelite.api.MenuAction;
-import static net.runelite.api.MenuAction.MENU_ACTION_DEPRIORITIZE_OFFSET;
-import net.runelite.api.MenuEntry;
+import net.runelite.api.menus.MenuOpcode;
+import static net.runelite.api.menus.MenuOpcode.MENU_ACTION_DEPRIORITIZE_OFFSET;
+import net.runelite.api.menus.MenuEntry;
 import net.runelite.api.NPCDefinition;
 import net.runelite.api.events.BeforeRender;
 import net.runelite.api.events.MenuEntryAdded;
@@ -63,6 +63,7 @@ import net.runelite.api.events.WidgetPressed;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.eventbus.EventBus;
 import static net.runelite.client.menus.ComparableEntries.newBaseComparableEntry;
+import net.runelite.client.menus.menuentries.DirectMenuEntries;
 import net.runelite.client.util.Text;
 
 @Singleton
@@ -153,9 +154,14 @@ public class MenuManager
 
 		firstEntry = null;
 
-		List<MenuEntry> newEntries = Lists.newArrayList(oldEntries);
+//		List<MenuEntry> newEntries = Lists.newArrayList(oldEntries).forEach();
 
 		boolean shouldDeprioritize = false;
+
+		for (AbstractComparableEntry p : priorityEntries)
+		{
+			//int index = DirectMenuEntries.tryFindMatch(p);
+		}
 
 		prioritizer:
 		for (MenuEntry entry : oldEntries)
@@ -163,91 +169,91 @@ public class MenuManager
 			for (AbstractComparableEntry p : priorityEntries)
 			{
 				// Create list of priority entries, and remove from menus
-				if (p.matches(entry))
-				{
-					// Other entries need to be deprioritized if their types are lower than 1000
-					if (entry.getType() >= 1000 && !shouldDeprioritize)
-					{
-						shouldDeprioritize = true;
-					}
-					currentPriorityEntries.put(entry, p);
-					newEntries.remove(entry);
-					continue prioritizer;
-				}
+				//if (p.matches(entry))
+				//{
+				//	// Other entries need to be deprioritized if their types are lower than 1000
+				//	if (entry.getOpcode() >= 1000 && !shouldDeprioritize)
+				//	{
+				//		shouldDeprioritize = true;
+				//	}
+				//	currentPriorityEntries.put(entry, p);
+				//	newEntries.remove(entry);
+				//	continue prioritizer;
+				//}
 			}
 
-			if (newEntries.size() > 0)
+			//if (newEntries.size() > 0)
 			{
 				// Swap first matching entry to top
 				for (AbstractComparableEntry src : swaps.keySet())
 				{
-					if (!src.matches(entry))
+				//	if (!src.matches(entry))
 					{
 						continue;
 					}
 
-					MenuEntry swapFrom = null;
+			//		MenuEntry swapFrom = null;
 
-					AbstractComparableEntry from = swaps.get(src);
+	//				AbstractComparableEntry from = swaps.get(src);
 
-					for (MenuEntry e : newEntries)
-					{
-						if (from.matches(e))
-						{
-							swapFrom = e;
-							break;
-						}
+				//	for (MenuEntry e : newEntries)
+			//		{
+					//	if (from.matches(e))
+		//				{
+			//				swapFrom = e;
+	//						break;
+		//				}
 					}
 
 					// Do not need to swap with itself or if the swapFrom is already the first entry
-					if (swapFrom != null && swapFrom != entry && swapFrom != Iterables.getLast(newEntries))
+				//	if (swapFrom != null && swapFrom != entry && swapFrom != Iterables.getLast(newEntries))
 					{
 						// Deprioritize entries if the swaps are not in similar type groups
-						if ((swapFrom.getType() >= 1000 && entry.getType() < 1000) || (entry.getType() >= 1000 && swapFrom.getType() < 1000) && !shouldDeprioritize)
+		//				if ((swapFrom.getOpcode() >= 1000 && entry.getOpcode() < 1000) || (entry.getOpcode() >= 1000 && swapFrom.getOpcode() < 1000) && !shouldDeprioritize)
 						{
 							shouldDeprioritize = true;
 						}
 
-						int indexFrom = newEntries.indexOf(swapFrom);
-						int indexTo = newEntries.indexOf(entry);
+				//		int indexFrom = newEntries.indexOf(swapFrom);
+				//		int indexTo = newEntries.indexOf(entry);
 
-						Collections.swap(newEntries, indexFrom, indexTo);
+				//		Collections.swap(newEntries, indexFrom, indexTo);
 					}
 				}
 			}
 		}
 
-		if (shouldDeprioritize)
+	//	if (shouldDeprioritize)
 		{
-			for (MenuEntry entry : newEntries)
+		//	for (MenuEntry entry : newEntries)
 			{
-				if (entry.getType() <= MENU_ACTION_DEPRIORITIZE_OFFSET)
+		//		if (entry.getOpcode() <= MENU_ACTION_DEPRIORITIZE_OFFSET)
 				{
-					entry.setType(entry.getType() + MENU_ACTION_DEPRIORITIZE_OFFSET);
+		//			entry.setOpcode(entry.getOpcode() + MENU_ACTION_DEPRIORITIZE_OFFSET);
 				}
 			}
 		}
 
-		if (!currentPriorityEntries.isEmpty())
+//	if (!currentPriorityEntries.isEmpty())
 		{
-			newEntries.addAll(currentPriorityEntries.entrySet().stream()
-				.sorted(Comparator.comparingInt(e -> e.getValue().getPriority()))
-				.map(Map.Entry::getKey)
-				.collect(Collectors.toList()));
+		//	newEntries.addAll(currentPriorityEntries.entrySet().stream()
+		//		.sorted(Comparator.comparingInt(e -> e.getValue().getPriority()))
+		//		.map(Map.Entry::getKey)
+		//		.collect(Collectors.toList()));
 		}
 
-		MenuEntry[] arrayEntries = newEntries.toArray(new MenuEntry[0]);
+		//MenuEntry[] arrayEntries = newEntries.toArray(new MenuEntry[0]);
 
 		// Need to set the event entries to prevent conflicts
-		event.setMenuEntries(arrayEntries);
-		client.setMenuEntries(arrayEntries);
-	}
+	//	event.setMenuEntries(arrayEntries);
+	//	client.setMenuEntries(arrayEntries);
+//	}
 
 	private void onMenuEntryAdded(MenuEntryAdded event)
 	{
 		for (AbstractComparableEntry e : hiddenEntries)
 		{
-			if (e.matches(event.getMenuEntry()))
+		//	if (e.matches(event.getMenuEntry()))
 			{
 				client.setMenuOptionCount(client.getMenuOptionCount() - 1);
 				return;
@@ -268,7 +274,7 @@ public class MenuManager
 				menuEntry.setOption(currentMenu.getMenuOption());
 				menuEntry.setParam1(widgetId);
 				menuEntry.setTarget(currentMenu.getMenuTarget());
-				menuEntry.setType(MenuAction.RUNELITE.getId());
+				menuEntry.setOpcode(MenuOpcode.RUNELITE.getId());
 
 				client.setMenuEntries(menuEntries);
 			}
@@ -443,7 +449,7 @@ public class MenuManager
 			}
 		}
 
-		if (event.getMenuAction() != MenuAction.RUNELITE)
+		if (event.getMenuOpcode() != MenuOpcode.RUNELITE)
 		{
 			return; // not a player menu
 		}
@@ -482,7 +488,7 @@ public class MenuManager
 	{
 		client.getPlayerOptions()[playerOptionIndex] = menuText;
 		client.getPlayerOptionsPriorities()[playerOptionIndex] = true;
-		client.getPlayerMenuTypes()[playerOptionIndex] = MenuAction.RUNELITE.getId();
+		client.getPlayerMenuTypes()[playerOptionIndex] = MenuOpcode.RUNELITE.getId();
 
 		playerMenuIndexMap.put(playerOptionIndex, menuText);
 	}
@@ -790,15 +796,15 @@ public class MenuManager
 			final MenuEntry entry = entries[i];
 			for (AbstractComparableEntry prio : priorityEntries)
 			{
-				if (!prio.matches(entry))
+			//	if (!prio.matches(entry))
 				{
 					continue;
 				}
 
-				final SortMapping map = new SortMapping(prio.getPriority(), entry);
-				prios[prioAmt++] = map;
-				entries[i] = null;
-				break;
+		//		final SortMapping map = new SortMapping(prio.getPriority(), entry);
+			//	prios[prioAmt++] = map;
+		//		entries[i] = null;
+		//		break;
 			}
 		}
 
@@ -834,7 +840,7 @@ public class MenuManager
 
 		for (Map.Entry<AbstractComparableEntry, AbstractComparableEntry> pair : swaps.entrySet())
 		{
-			if (pair.getKey().matches(first))
+		//	if (pair.getKey().matches(first))
 			{
 				values.add(pair.getValue());
 			}
@@ -853,21 +859,21 @@ public class MenuManager
 			final MenuEntry entry = entries[i];
 			for (AbstractComparableEntry swap : values)
 			{
-				if (!swap.matches(entry))
+		//		if (!swap.matches(entry))
 				{
 					continue;
 				}
 
-				entries[i] = first;
-				entries[menuOptionCount - 1] = entry;
-				firstEntry = entry;
-				break outer;
+			//	entries[i] = first;
+			//	entries[menuOptionCount - 1] = entry;
+			//	firstEntry = entry;
+			//	break outer;
 			}
 		}
 	}
 
 	@AllArgsConstructor
-	private class SortMapping implements Comparable<SortMapping>
+	private static class SortMapping implements Comparable<SortMapping>
 	{
 		private final int priority;
 		private final MenuEntry entry;

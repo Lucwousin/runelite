@@ -349,14 +349,14 @@ public class WikiPlugin extends Plugin
 			menuEntry.setOption(MENUOP_GUIDE);
 			menuEntry.setParam0(widgetIndex);
 			menuEntry.setParam1(widgetID);
-			menuEntry.setType(MenuOpcode.RUNELITE.getId());
+			menuEntry.setOpcode(MenuOpcode.RUNELITE.getId());
 
 			menuEntry = menuEntries[menuEntries.length - 2] = new MenuEntry();
 			menuEntry.setTarget(event.getTarget());
 			menuEntry.setOption(MENUOP_QUICKGUIDE);
 			menuEntry.setParam0(widgetIndex);
 			menuEntry.setParam1(widgetID);
-			menuEntry.setType(MenuOpcode.RUNELITE.getId());
+			menuEntry.setOpcode(MenuOpcode.RUNELITE.getId());
 
 			client.setMenuEntries(menuEntries);
 		}
@@ -372,7 +372,7 @@ public class WikiPlugin extends Plugin
 			menuEntry.setParam0(widgetIndex);
 			menuEntry.setParam1(widgetID);
 			menuEntry.setIdentifier(event.getIdentifier());
-			menuEntry.setType(MenuOpcode.RUNELITE.getId());
+			menuEntry.setOpcode(MenuOpcode.RUNELITE.getId());
 
 			client.setMenuEntries(menuEntries);
 		}

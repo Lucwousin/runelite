@@ -40,6 +40,8 @@ import net.runelite.api.Ignore;
 import net.runelite.api.IndexDataBase;
 import net.runelite.api.IndexedSprite;
 import net.runelite.api.InventoryID;
+import net.runelite.api.menus.DirectMenuEntryElement;
+import net.runelite.api.menus.MenuEntries;
 import net.runelite.api.menus.MenuOpcode;
 import static net.runelite.api.menus.MenuOpcode.PLAYER_EIGTH_OPTION;
 import static net.runelite.api.menus.MenuOpcode.PLAYER_FIFTH_OPTION;
@@ -641,64 +643,18 @@ public abstract class RSClientMixin implements RSClient
 
 	@Inject
 	@Override
-	public MenuEntry[] getMenuEntries()
+	@Deprecated
+	public DirectMenuEntryElement getMenuEntries()
 	{
-		int count = getMenuOptionCount();
-		String[] menuOptions = getMenuOptions();
-		String[] menuTargets = getMenuTargets();
-		int[] menuIdentifiers = getMenuIdentifiers();
-		int[] menuTypes = getMenuOpcodes();
-		int[] params0 = getMenuArguments1();
-		int[] params1 = getMenuArguments2();
-		boolean[] leftClick = getMenuForceLeftClick();
-
-		MenuEntry[] entries = new MenuEntry[count];
-		for (int i = 0; i < count; ++i)
-		{
-			MenuEntry entry = entries[i] = new MenuEntry();
-			entry.setOption(menuOptions[i]);
-			entry.setTarget(menuTargets[i]);
-			entry.setIdentifier(menuIdentifiers[i]);
-			entry.setType(menuTypes[i]);
-			entry.setParam0(params0[i]);
-			entry.setParam1(params1[i]);
-			entry.setForceLeftClick(leftClick[i]);
-		}
-		return entries;
+		return DirectMenuEntryElement.INSTANCE;
 	}
 
 	@Inject
 	@Override
+	@Deprecated
 	public void setMenuEntries(MenuEntry[] entries)
 	{
-		int count = 0;
-		String[] menuOptions = getMenuOptions();
-		String[] menuTargets = getMenuTargets();
-		int[] menuIdentifiers = getMenuIdentifiers();
-		int[] menuTypes = getMenuOpcodes();
-		int[] params0 = getMenuArguments1();
-		int[] params1 = getMenuArguments2();
-		boolean[] leftClick = getMenuForceLeftClick();
-
-		for (MenuEntry entry : entries)
-		{
-			if (entry == null)
-			{
-				continue;
-			}
-
-			menuOptions[count] = entry.getOption();
-			menuTargets[count] = entry.getTarget();
-			menuIdentifiers[count] = entry.getIdentifier();
-			menuTypes[count] = entry.getType();
-			params0[count] = entry.getParam0();
-			params1[count] = entry.getParam1();
-			leftClick[count] = entry.isForceLeftClick();
-			++count;
-		}
-
-		setMenuOptionCount(count);
-		oldMenuEntryCount = count;
+		throw new RuntimeException("Deprecated");
 	}
 
 	@FieldHook("menuOptionsCount")
@@ -708,23 +664,13 @@ public abstract class RSClientMixin implements RSClient
 		int oldCount = oldMenuEntryCount;
 		int newCount = client.getMenuOptionCount();
 
+		MenuEntries.setMenuEntryCount(newCount);
+
 		oldMenuEntryCount = newCount;
 
 		if (newCount == oldCount + 1)
 		{
-			MenuEntryAdded event = new MenuEntryAdded(
-				new MenuEntry(
-					client.getMenuOptions()[oldCount],
-					client.getMenuTargets()[oldCount],
-					client.getMenuIdentifiers()[oldCount],
-					client.getMenuOpcodes()[oldCount],
-					client.getMenuArguments1()[oldCount],
-					client.getMenuArguments2()[oldCount],
-					client.getMenuForceLeftClick()[oldCount],
-					false,
-					false
-				)
-			);
+			MenuEntryAdded event = new MenuEntryAdded(newCount);
 
 			client.getCallbacks().post(MenuEntryAdded.class, event);
 		}
@@ -1328,8 +1274,6 @@ public abstract class RSClientMixin implements RSClient
 				menuAction,
 				actionParam,
 				widgetId,
-				false,
-				false,
 				false
 			),
 			authentic
@@ -1342,7 +1286,7 @@ public abstract class RSClientMixin implements RSClient
 			return;
 		}
 
-		rs$menuAction(menuOptionClicked.getActionParam0(), menuOptionClicked.getActionParam1(), menuOptionClicked.getType(),
+		rs$menuAction(menuOptionClicked.getActionParam0(), menuOptionClicked.getActionParam1(), menuOptionClicked.getOpcode(),
 			menuOptionClicked.getIdentifier(), menuOptionClicked.getOption(), menuOptionClicked.getTarget(), var6, var7);
 	}
 
@@ -1396,9 +1340,8 @@ public abstract class RSClientMixin implements RSClient
 	@MethodHook("openMenu")
 	public void menuOpened(int x, int y)
 	{
-		sortMenuEntries();
 		final MenuOpened event = new MenuOpened();
-		event.setMenuEntries(getMenuEntries());
+		event.setMenuEntries(getMenuEntries()); // TODO: Is this needed? replacement?
 		callbacks.post(MenuOpened.class, event);
 	}
 

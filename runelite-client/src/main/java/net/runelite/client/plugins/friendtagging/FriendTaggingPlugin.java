@@ -131,7 +131,7 @@ public class FriendTaggingPlugin extends Plugin
 			// Build "Add Note" or "Edit Note" menu entry
 			final MenuEntry entry = new MenuEntry();
 			entry.setOption(friendName == null || getTag(friendName) == null ? ADD_TAG : DELETE_TAG);
-			entry.setType(MenuOpcode.RUNELITE.getId());
+			entry.setOpcode(MenuOpcode.RUNELITE.getId());
 			entry.setTarget(event.getTarget()); //Preserve color codes here
 			entry.setParam0(event.getActionParam0());
 			entry.setParam1(event.getActionParam1());

@@ -271,7 +271,7 @@ public class PlayerIndicatorsPlugin extends Plugin
 
 	private void onMenuEntryAdded(MenuEntryAdded menuEntryAdded)
 	{
-		int type = menuEntryAdded.getType();
+		int type = menuEntryAdded.getOpcode();
 
 		if (type >= 2000)
 		{

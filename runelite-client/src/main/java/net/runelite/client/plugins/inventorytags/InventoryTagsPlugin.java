@@ -235,7 +235,7 @@ public class InventoryTagsPlugin extends Plugin
 				newMenu.setTarget(ColorUtil.prependColorTag(groupName, MoreObjects.firstNonNull(color, Color.WHITE)));
 				newMenu.setIdentifier(itemId);
 				newMenu.setParam1(widgetId);
-				newMenu.setType(MenuOpcode.RUNELITE.getId());
+				newMenu.setOpcode(MenuOpcode.RUNELITE.getId());
 				menuList[num++] = newMenu;
 			}
 

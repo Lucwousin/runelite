@@ -181,7 +181,7 @@ public class ScriptFrame {
 
 			var4.definition = GameShell.getNpcDefinition(var1.readBits(14));
 			var4.size = var4.definition.size * 78073455;
-			var4.field948 = var4.definition.field3492;
+			var4.field948 = var4.definition.rotation;
 			if (var4.field948 == 0) {
 				var4.rotation = 0;
 			}
@@ -252,7 +252,7 @@ public class ScriptFrame {
 			if ((var5 & 4) != 0) {
 				var4.definition = GameShell.getNpcDefinition(var1.readUnsignedShort());
 				var4.size = var4.definition.size * 78073455;
-				var4.field948 = var4.definition.field3492;
+				var4.field948 = var4.definition.rotation;
 				var4.walkSequence = var4.definition.walkSequence;
 				var4.walkBackSequence = var4.definition.walkBackSequence;
 				var4.walkLeftSequence = var4.definition.walkLeftSequence;

@@ -80,9 +80,9 @@ public class MenuOptionClicked implements Event
 	/**
 	 * MenuOpcode but int-ish
 	 */
-	public int getType()
+	public int getOpcode()
 	{
-		return menuEntry.getType();
+		return menuEntry.getOpcode();
 	}
 
 	/**
@@ -119,7 +119,7 @@ public class MenuOptionClicked implements Event
 	 */
 	public MenuOpcode getMenuOpcode()
 	{
-		return MenuOpcode.of(getType());
+		return MenuOpcode.of(getOpcode());
 	}
 
 	/**

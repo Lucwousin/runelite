@@ -164,7 +164,7 @@ public class ChatTranslationPlugin extends Plugin implements KeyListener
 			final MenuEntry menuEntry = new MenuEntry();
 			menuEntry.setOption(TRANSLATE);
 			menuEntry.setTarget(event.getTarget());
-			menuEntry.setType(MenuOpcode.RUNELITE.getId());
+			menuEntry.setOpcode(MenuOpcode.RUNELITE.getId());
 			menuEntry.setParam0(event.getActionParam0());
 			menuEntry.setParam1(event.getActionParam1());
 			menuEntry.setIdentifier(event.getIdentifier());

@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import net.runelite.api.Client;
 import net.runelite.api.ItemDefinition;
-import net.runelite.api.MenuEntry;
+import static net.runelite.client.menus.menuentries.DirectMenuEntries.*;
 import net.runelite.client.util.Text;
 
 @EqualsAndHashCode(callSuper = true)
@@ -18,7 +18,7 @@ abstract class ItemComparableEntry extends AbstractComparableEntry
 	@EqualsAndHashCode.Exclude
 	short itemCount;
 
-	public abstract boolean matches(MenuEntry entry);
+//	public abstract boolean matches(DirectMenuEntryElement entry);
 
 	@EqualsAndHashCode(callSuper = true)
 	static class InvItemComparableEntry extends ItemComparableEntry
@@ -73,9 +73,9 @@ abstract class ItemComparableEntry extends AbstractComparableEntry
 			System.arraycopy(tmp, 0, this.itemIds, 0, found);
 		}
 
-		public boolean matches(MenuEntry entry)
+/*		public boolean matches(DirectMenuEntryElement entry)
 		{
-			if (!this.option.contains(Text.standardize(entry.getOption())))
+			if (!entry.optionContains(this.option))
 			{
 				return false;
 			}
@@ -90,6 +90,6 @@ abstract class ItemComparableEntry extends AbstractComparableEntry
 			}
 
 			return false;
-		}
+		}*/
 	}
 }

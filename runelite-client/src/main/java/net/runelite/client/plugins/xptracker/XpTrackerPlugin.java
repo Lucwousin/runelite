@@ -504,7 +504,7 @@ public class XpTrackerPlugin extends Plugin
 		menuEntry.setOption(hasOverlay(skill) ? MENUOP_REMOVE_CANVAS_TRACKER : MENUOP_ADD_CANVAS_TRACKER);
 		menuEntry.setParam0(event.getActionParam0());
 		menuEntry.setParam1(widgetID);
-		menuEntry.setType(MenuOpcode.RUNELITE.getId());
+		menuEntry.setOpcode(MenuOpcode.RUNELITE.getId());
 
 		client.setMenuEntries(menuEntries);
 	}

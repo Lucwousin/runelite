@@ -379,7 +379,7 @@ public class DevToolsPlugin extends Plugin
 			return;
 		}
 
-		MenuOpcode action = MenuOpcode.of(event.getType());
+		MenuOpcode action = MenuOpcode.of(event.getOpcode());
 
 		if (EXAMINE_MENU_ACTIONS.contains(action))
 		{

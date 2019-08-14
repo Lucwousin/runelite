@@ -51,7 +51,7 @@ public class MappingDumper
 	public DeobTestProperties properties = new DeobTestProperties();
 
 	private ClassGroup group;
-	private static final String OUTDIR = "";
+	private static final String OUTDIR = "C:/Users/Lucas/Desktop";
 	private final File OUTFILE = new File(OUTDIR, "rlplushooks.json");
 
 	@Before
@@ -61,13 +61,13 @@ public class MappingDumper
 	}
 
 	@Test
-	@Ignore
 	public void newDump()
 	{
 		new net.runelite.deob.updater.MappingDumper(group).dump(OUTFILE);
 	}
 
 	@Test
+	@Ignore
 	public void dump() throws IOException
 	{
 		ClassGroup group = JarUtil.loadJar(new File(properties.getRsClient()));

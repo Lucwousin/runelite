@@ -50,6 +50,7 @@ import net.runelite.api.GameState;
 import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
 import net.runelite.api.ItemDefinition;
+import net.runelite.api.menus.MenuEntries;
 import net.runelite.api.menus.MenuOpcode;
 import static net.runelite.api.menus.MenuOpcode.MENU_ACTION_DEPRIORITIZE_OFFSET;
 import static net.runelite.api.menus.MenuOpcode.WALK;
@@ -635,7 +636,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		{
 			if (itemName.equals(Text.removeTags(entry.getTarget())))
 			{
-				entry.setType(MenuOpcode.RUNELITE.getId());
+				entry.setOpcode(MenuOpcode.RUNELITE.getId());
 
 				if (option.equals(entry.getOption()))
 				{
@@ -649,7 +650,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 		resetShiftClickEntry.setTarget(MENU_TARGET);
 		resetShiftClickEntry.setIdentifier(itemId);
 		resetShiftClickEntry.setParam1(widgetId);
-		resetShiftClickEntry.setType(MenuOpcode.RUNELITE.getId());
+		resetShiftClickEntry.setOpcode(MenuOpcode.RUNELITE.getId());
 		client.setMenuEntries(ArrayUtils.addAll(entries, resetShiftClickEntry));
 	}
 
@@ -721,8 +722,8 @@ public class MenuEntrySwapperPlugin extends Plugin
 		final String option = Text.standardize(event.getOption());
 		final String target = Text.standardize(event.getTarget());
 		final NPC hintArrowNpc = client.getHintArrowNpc();
-		entries = client.getMenuEntries();
 
+		// TODO: Implement this using menumanager
 		if (this.getRemoveObjects && !this.getRemovedObjects.equals(""))
 		{
 			for (String removed : Text.fromCSV(this.getRemovedObjects))
@@ -730,20 +731,21 @@ public class MenuEntrySwapperPlugin extends Plugin
 				removed = Text.standardize(removed);
 				if (target.contains("(") && target.split(" \\(")[0].equals(removed))
 				{
-					delete(event.getIdentifier());
+					client.setMenuOptionCount(MenuEntries.menuEntryCount - 1);
+					break;
 				}
 				else if (target.contains("->"))
 				{
 					String trimmed = target.split("->")[1].trim();
 					if (trimmed.length() >= removed.length() && trimmed.substring(0, removed.length()).equalsIgnoreCase(removed))
 					{
-						delete(event.getIdentifier());
+						client.setMenuOptionCount(MenuEntries.menuEntryCount - 1);
 						break;
 					}
 				}
 				else if (target.length() >= removed.length() && target.substring(0, removed.length()).equalsIgnoreCase(removed))
 				{
-					delete(event.getIdentifier());
+					client.setMenuOptionCount(MenuEntries.menuEntryCount - 1);
 					break;
 				}
 			}
@@ -751,12 +753,9 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 		if (this.getSwapPuro && isPuroPuro())
 		{
-			if (event.getType() == WALK.getId())
+			if (event.getOpcode() == WALK.getId())
 			{
-				MenuEntry[] menuEntries = client.getMenuEntries();
-				MenuEntry menuEntry = menuEntries[menuEntries.length - 1];
-				menuEntry.setType(MenuOpcode.WALK.getId() + MENU_ACTION_DEPRIORITIZE_OFFSET);
-				client.setMenuEntries(menuEntries);
+				event.getMenuEntry().setOpcode(MenuOpcode.WALK.getId() + MENU_ACTION_DEPRIORITIZE_OFFSET);
 			}
 			else if (option.equalsIgnoreCase("examine"))
 			{
@@ -770,7 +769,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 		if (hintArrowNpc != null
 			&& hintArrowNpc.getIndex() == eventId
-			&& NPC_MENU_TYPES.contains(MenuOpcode.of(event.getType())))
+			&& NPC_MENU_TYPES.contains(MenuOpcode.of(event.getOpcode())))
 		{
 			return;
 		}
@@ -1656,19 +1655,6 @@ public class MenuEntrySwapperPlugin extends Plugin
 				menuManager.removePriorityEntry("Friend's house");
 				break;
 		}
-	}
-
-	private void delete(int target)
-	{
-		for (int i = entries.length - 1; i >= 0; i--)
-		{
-			if (entries[i].getIdentifier() == target)
-			{
-				entries = ArrayUtils.remove(entries, i);
-				i--;
-			}
-		}
-		client.setMenuEntries(entries);
 	}
 
 	private boolean isPuroPuro()

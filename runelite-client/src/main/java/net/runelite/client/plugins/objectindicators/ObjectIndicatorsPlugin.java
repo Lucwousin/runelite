@@ -242,7 +242,7 @@ public class ObjectIndicatorsPlugin extends Plugin implements KeyListener
 
 	private void onMenuEntryAdded(MenuEntryAdded event)
 	{
-		if (!hotKeyPressed || event.getType() != MenuOpcode.EXAMINE_OBJECT.getId())
+		if (!hotKeyPressed || event.getOpcode() != MenuOpcode.EXAMINE_OBJECT.getId())
 		{
 			return;
 		}
@@ -258,7 +258,7 @@ public class ObjectIndicatorsPlugin extends Plugin implements KeyListener
 		menuEntry.setParam0(event.getActionParam0());
 		menuEntry.setParam1(event.getActionParam1());
 		menuEntry.setIdentifier(event.getIdentifier());
-		menuEntry.setType(MenuOpcode.RUNELITE.getId());
+		menuEntry.setOpcode(MenuOpcode.RUNELITE.getId());
 		client.setMenuEntries(menuEntries);
 	}
 

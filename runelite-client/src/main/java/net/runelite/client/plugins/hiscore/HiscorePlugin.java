@@ -202,7 +202,7 @@ public class HiscorePlugin extends Plugin
 			final MenuEntry lookup = new MenuEntry();
 			lookup.setOption(LOOKUP);
 			lookup.setTarget(event.getTarget());
-			lookup.setType(MenuOpcode.RUNELITE.getId());
+			lookup.setOpcode(MenuOpcode.RUNELITE.getId());
 			lookup.setParam0(event.getActionParam0());
 			lookup.setParam1(event.getActionParam1());
 			lookup.setIdentifier(event.getIdentifier());

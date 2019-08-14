@@ -109,9 +109,9 @@ public enum Menus
 		return entry.getId();
 	}
 
-	public int getType()
+	public int getOpcode()
 	{
-		return entry.getType();
+		return entry.getOpcode();
 	}
 
 	public boolean isStrictOption()

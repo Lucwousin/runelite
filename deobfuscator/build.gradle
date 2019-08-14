@@ -24,6 +24,7 @@ dependencies {
     testImplementation configurations.deobjars.dependencies
     testImplementation group: 'junit', name: 'junit', version: '4.12'
     testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.0.0'
+    testImplementation('io.sigpipe:jbsdiff:1.0')
 }
 
 processResources {

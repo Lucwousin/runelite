@@ -89,7 +89,7 @@ class ItemPricesOverlay extends Overlay
 		}
 
 		final MenuEntry menuEntry = menuEntries[last];
-		final MenuOpcode action = MenuOpcode.of(menuEntry.getType());
+		final MenuOpcode action = MenuOpcode.of(menuEntry.getOpcode());
 		final int widgetId = menuEntry.getParam1();
 		final int groupId = WidgetInfo.TO_GROUP(widgetId);
 

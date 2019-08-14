@@ -246,7 +246,7 @@ public class CorpPlugin extends Plugin
 
 	private void onMenuEntryAdded(MenuEntryAdded menuEntryAdded)
 	{
-		if (menuEntryAdded.getType() != NPC_SECTION_ACTION
+		if (menuEntryAdded.getOpcode() != NPC_SECTION_ACTION
 			|| !this.leftClickCore || !menuEntryAdded.getOption().equals(ATTACK))
 		{
 			return;
@@ -263,7 +263,7 @@ public class CorpPlugin extends Plugin
 		MenuEntry[] menuEntries = client.getMenuEntries();
 		MenuEntry menuEntry = menuEntries[menuEntries.length - 1];
 
-		menuEntry.setType(NPC_SECTION_ACTION + MENU_ACTION_DEPRIORITIZE_OFFSET);
+		menuEntry.setOpcode(NPC_SECTION_ACTION + MENU_ACTION_DEPRIORITIZE_OFFSET);
 		client.setMenuEntries(menuEntries);
 	}
 

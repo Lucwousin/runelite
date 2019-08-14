@@ -325,7 +325,7 @@ public class BankTagsPlugin extends Plugin implements MouseWheelListener, KeyLis
 			editTags.setParam1(event.getActionParam1());
 			editTags.setTarget(event.getTarget());
 			editTags.setOption(text);
-			editTags.setType(MenuOpcode.RUNELITE.getId());
+			editTags.setOpcode(MenuOpcode.RUNELITE.getId());
 			editTags.setIdentifier(event.getIdentifier());
 			entries = Arrays.copyOf(entries, entries.length + 1);
 			entries[entries.length - 1] = editTags;

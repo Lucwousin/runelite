@@ -24,11 +24,8 @@
  */
 package net.runelite.api.menus;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -57,7 +54,7 @@ public class MenuEntry
 	/**
 	 * The action the entry will trigger.
 	 */
-	private int type;
+	private int opcode;
 	/**
 	 * An additional parameter for the action.
 	 */
@@ -80,40 +77,10 @@ public class MenuEntry
 			src.getOption(),
 			src.getTarget(),
 			src.getIdentifier(),
-			src.getType(),
+			src.getOpcode(),
 			src.getParam0(),
 			src.getParam1(),
-			src.isForceLeftClick(),
-			false,
-			false
+			src.isForceLeftClick()
 		);
 	}
-
-	private static final Matcher TAG_REGEXP = Pattern.compile("<[^>]*>").matcher("");
-	public String getOption()
-	{
-		if (!standardizedOption)
-		{
-			option = standardize(option);
-		}
-		return option;
-	}
-	public String getTarget()
-	{
-		if (!standardizedTarget)
-		{
-			target = standardize(LEVEL_MATCHER.reset(target).replaceAll(""));
-		}
-		return target;
-	}
-
-	private boolean standardizedOption = false;
-	private boolean standardizedTarget = false;
-
-	public String standardize(String string)
-	{
-		return TAG_REGEXP.reset(string).replaceAll("").replace('\u00A0', ' ').trim().toLowerCase();
-	}
-
-	private static final Matcher LEVEL_MATCHER = Pattern.compile("\\(level-[0-9]*\\)").matcher("");
 }

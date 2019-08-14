@@ -296,7 +296,7 @@ public class NpcIndicatorsPlugin extends Plugin
 	{
 		MenuEntry[] menuEntries = client.getMenuEntries();
 		String target = event.getTarget();
-		int type = event.getType();
+		int type = event.getOpcode();
 
 		if (type >= MENU_ACTION_DEPRIORITIZE_OFFSET)
 		{
@@ -321,7 +321,7 @@ public class NpcIndicatorsPlugin extends Plugin
 			tagEntry.setParam0(event.getActionParam0());
 			tagEntry.setParam1(event.getActionParam1());
 			tagEntry.setIdentifier(event.getIdentifier());
-			tagEntry.setType(MenuOpcode.RUNELITE.getId());
+			tagEntry.setOpcode(MenuOpcode.RUNELITE.getId());
 			client.setMenuEntries(menuEntries);
 		}
 	}

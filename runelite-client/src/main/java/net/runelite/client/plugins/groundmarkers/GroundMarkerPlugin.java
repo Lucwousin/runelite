@@ -320,7 +320,7 @@ public class GroundMarkerPlugin extends Plugin
 				final String option = (stream.isPresent() && stream.get().getGroup() == i) ? UNMARK : MARK;
 				menuEntry.setOption(ColorUtil.prependColorTag(Text.removeTags(option + (i == 1 ? "" : " (Group " + i + ")")), getColor(i)));
 				menuEntry.setTarget(event.getTarget());
-				menuEntry.setType(MenuOpcode.RUNELITE.getId());
+				menuEntry.setOpcode(MenuOpcode.RUNELITE.getId());
 
 				lastIndex++;
 			}

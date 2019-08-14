@@ -364,7 +364,7 @@ public class class65 extends RouteStrategy {
 					class188.insertMenuItemNoShift(var28[var29], ClientPreferences.colorStartTag(0xff9040) + var35.name, var24, var37.id, var15, var16);
 				}
 
-				class188.insertMenuItemNoShift("Examine", ClientPreferences.colorStartTag(16748608) + var35.name, 1004, var37.id, var15, var16);
+				class188.insertMenuItemNoShift("Examine", ClientPreferences.colorStartTag(0xff9040) + var35.name, 1004, var37.id, var15, var16);
 			}
 		}
 

@@ -450,7 +450,7 @@ public class GroundItemsPlugin extends Plugin
 
 			if (this.collapseEntries)
 			{
-				int menuType = menuEntry.getType();
+				int menuType = menuEntry.getOpcode();
 				if (menuType == FIRST_OPTION || menuType == SECOND_OPTION || menuType == THIRD_OPTION
 					|| menuType == FOURTH_OPTION || menuType == FIFTH_OPTION || menuType == EXAMINE_ITEM)
 				{
@@ -472,12 +472,12 @@ public class GroundItemsPlugin extends Plugin
 
 		newEntries.sort((a, b) ->
 		{
-			final int aMenuType = a.getEntry().getType();
+			final int aMenuType = a.getEntry().getOpcode();
 			if (aMenuType == FIRST_OPTION || aMenuType == SECOND_OPTION || aMenuType == THIRD_OPTION
 				|| aMenuType == FOURTH_OPTION || aMenuType == FIFTH_OPTION || aMenuType == EXAMINE_ITEM
 				|| aMenuType == WALK)
 			{ // only check for item related menu types, so we don't sort other stuff
-				final int bMenuType = b.getEntry().getType();
+				final int bMenuType = b.getEntry().getOpcode();
 				if (bMenuType == FIRST_OPTION || bMenuType == SECOND_OPTION || bMenuType == THIRD_OPTION
 					|| bMenuType == FOURTH_OPTION || bMenuType == FIFTH_OPTION || bMenuType == EXAMINE_ITEM
 					|| bMenuType == WALK)
@@ -684,8 +684,8 @@ public class GroundItemsPlugin extends Plugin
 	{
 		if (this.itemHighlightMode != OVERLAY)
 		{
-			final boolean telegrabEntry = event.getOption().equals("Cast") && event.getTarget().startsWith(TELEGRAB_TEXT) && event.getType() == CAST_ON_ITEM;
-			if (!(event.getOption().equals("Take") && event.getType() == THIRD_OPTION) && !telegrabEntry)
+			final boolean telegrabEntry = event.getOption().equals("Cast") && event.getTarget().startsWith(TELEGRAB_TEXT) && event.getOpcode() == CAST_ON_ITEM;
+			if (!(event.getOption().equals("Take") && event.getOpcode() == THIRD_OPTION) && !telegrabEntry)
 			{
 				return;
 			}

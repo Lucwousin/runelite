@@ -147,7 +147,7 @@ public class SlayermusiqPlugin extends Plugin
 		menuEntry.setOption(MENUOP_SLAYERMUSIQ);
 		menuEntry.setParam0(widgetIndex);
 		menuEntry.setParam1(widgetID);
-		menuEntry.setType(MenuOpcode.RUNELITE.getId());
+		menuEntry.setOpcode(MenuOpcode.RUNELITE.getId());
 
 		return menuEntry;
 	}

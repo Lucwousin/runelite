@@ -228,37 +228,39 @@ public abstract class AbstractFont extends Rasterizer2D {
 			char var6 = var1.charAt(var5);
 			if (var6 == '<') {
 				var2 = var5;
-			} else {
-				if (var6 == '>' && var2 != -1) {
-					String var7 = var1.substring(var2 + 1, var5);
-					var2 = -1;
-					if (var7.equals("lt")) {
-						var6 = '<';
-					} else if (var7.equals("gt")) {
-						var6 = '>';
-					} else if (var7.startsWith("img=")) {
-						try {
-							int var8 = class3.parseInt(var7.substring(4));
-							var4 += AbstractFont_modIconSprites[var8].width;
-							var3 = -1;
-						} catch (Exception var10) {
-						}
-					}
+				continue;
+			}
+			if (var6 == '>' && var2 != -1) {
+				String var7 = var1.substring(var2 + 1, var5);
+				var2 = -1;
+				if (var7.equals("lt")) {
+					var6 = '<';
 				}
-
-				if (var6 == 160) {
-					var6 = ' ';
-				}
-
-				if (var2 == -1) {
-					var4 += this.advances[(char)(ItemDefinition.charToByteCp1252(var6) & 255)];
-					if (this.kerning != null && var3 != -1) {
-						var4 += this.kerning[var6 + (var3 << 8)];
+				else if (var7.equals("gt")) {
+					var6 = '>';
+				} else if (var7.startsWith("img=")) {
+					try {
+						int var8 = class3.parseInt(var7.substring(4));
+						var4 += AbstractFont_modIconSprites[var8].width;
+						var3 = -1;
+					} catch (Exception var10) {
 					}
-
-					var3 = var6;
 				}
 			}
+
+			if (var6 == 160) {
+				var6 = ' ';
+			}
+
+			if (var2 != -1) {
+				continue;
+			}
+			var4 += this.advances[(char) (ItemDefinition.charToByteCp1252(var6) & 255)];
+			if (this.kerning != null && var3 != -1) {
+				var4 += this.kerning[var6 + (var3 << 8)];
+			}
+
+			var3 = var6;
 		}
 
 		return var4;
@@ -285,78 +287,79 @@ public abstract class AbstractFont extends Rasterizer2D {
 			char var15 = var1.charAt(var14);
 			if (var15 == '<') {
 				var10 = var14;
-			} else {
-				if (var15 == '>' && var10 != -1) {
-					String var16 = var1.substring(var10 + 1, var14);
-					var10 = -1;
-					var6.append('<');
-					var6.append(var16);
-					var6.append('>');
-					if (var16.equals("br")) {
-						var3[var12] = var6.toString().substring(var5, var6.length());
-						++var12;
-						var5 = var6.length();
-						var4 = 0;
-						var7 = -1;
-						var11 = 0;
-					} else if (var16.equals("lt")) {
-						var4 += this.charWidth('<');
-						if (this.kerning != null && var11 != -1) {
-							var4 += this.kerning[(var11 << '\b') + 60];
-						}
-
-						var11 = '<';
-					} else if (var16.equals("gt")) {
-						var4 += this.charWidth('>');
-						if (this.kerning != null && var11 != -1) {
-							var4 += this.kerning[(var11 << '\b') + 62];
-						}
-
-						var11 = '>';
-					} else if (var16.startsWith("img=")) {
-						try {
-							int var17 = class3.parseInt(var16.substring(4));
-							var4 += AbstractFont_modIconSprites[var17].width;
-							var11 = 0;
-						} catch (Exception var20) {
-						}
+				continue;
+			}
+			if (var15 == '>' && var10 != -1) {
+				String var16 = var1.substring(var10 + 1, var14);
+				var10 = -1;
+				var6.append('<');
+				var6.append(var16);
+				var6.append('>');
+				if (var16.equals("br")) {
+					var3[var12] = var6.toString().substring(var5, var6.length());
+					++var12;
+					var5 = var6.length();
+					var4 = 0;
+					var7 = -1;
+					var11 = 0;
+				} else if (var16.equals("lt")) {
+					var4 += this.charWidth('<');
+					if (this.kerning != null && var11 != -1) {
+						var4 += this.kerning[(var11 << '\b') + 60];
 					}
 
-					var15 = 0;
+					var11 = '<';
+				} else if (var16.equals("gt")) {
+					var4 += this.charWidth('>');
+					if (this.kerning != null && var11 != -1) {
+						var4 += this.kerning[(var11 << '\b') + 62];
+					}
+
+					var11 = '>';
+				} else if (var16.startsWith("img=")) {
+					try {
+						int var17 = class3.parseInt(var16.substring(4));
+						var4 += AbstractFont_modIconSprites[var17].width;
+						var11 = 0;
+					} catch (Exception var20) {
+					}
 				}
 
-				if (var10 == -1) {
-					if (var15 != 0) {
-						var6.append(var15);
-						var4 += this.charWidth(var15);
-						if (this.kerning != null && var11 != -1) {
-							var4 += this.kerning[var15 + (var11 << '\b')];
-						}
+				var15 = 0;
+			}
 
-						var11 = var15;
-					}
-
-					if (var15 == ' ') {
-						var7 = var6.length();
-						var8 = var4;
-						var9 = 1;
-					}
-
-					if (var2 != null && var4 > var2[var12 < var2.length ? var12 : var2.length - 1] && var7 >= 0) {
-						var3[var12] = var6.toString().substring(var5, var7 - var9);
-						++var12;
-						var5 = var7;
-						var7 = -1;
-						var4 -= var8;
-						var11 = 0;
-					}
-
-					if (var15 == '-') {
-						var7 = var6.length();
-						var8 = var4;
-						var9 = 0;
-					}
+			if (var10 != -1) {
+				continue;
+			}
+			if (var15 != 0) {
+				var6.append(var15);
+				var4 += this.charWidth(var15);
+				if (this.kerning != null && var11 != -1) {
+					var4 += this.kerning[var15 + (var11 << '\b')];
 				}
+
+				var11 = var15;
+			}
+
+			if (var15 == ' ') {
+				var7 = var6.length();
+				var8 = var4;
+				var9 = 1;
+			}
+
+			if (var2 != null && var4 > var2[var12 < var2.length ? var12 : var2.length - 1] && var7 >= 0) {
+				var3[var12] = var6.toString().substring(var5, var7 - var9);
+				++var12;
+				var5 = var7;
+				var7 = -1;
+				var4 -= var8;
+				var11 = 0;
+			}
+
+			if (var15 == '-') {
+				var7 = var6.length();
+				var8 = var4;
+				var9 = 0;
 			}
 		}
 
@@ -585,7 +588,7 @@ public abstract class AbstractFont extends Rasterizer2D {
 			} else if (var1.startsWith("str=")) {
 				AbstractFont_strike = VarbitDefinition.parseIntCustomRadix(var1.substring(4), 16);
 			} else if (var1.equals("str")) {
-				AbstractFont_strike = 8388608;
+				AbstractFont_strike = 0x800000;
 			} else if (var1.equals("/str")) {
 				AbstractFont_strike = -1;
 			} else if (var1.startsWith("u=")) {
@@ -639,83 +642,82 @@ public abstract class AbstractFont extends Rasterizer2D {
 		int var5 = -1;
 
 		for (int var6 = 0; var6 < var1.length(); ++var6) {
-			if (var1.charAt(var6) != 0) {
-				char var7 = (char)(ItemDefinition.charToByteCp1252(var1.charAt(var6)) & 255);
-				if (var7 == '<') {
-					var4 = var6;
+			if (var1.charAt(var6) == 0) {
+				continue;
+			}
+			char var7 = (char)(ItemDefinition.charToByteCp1252(var1.charAt(var6)) & 255);
+			if (var7 == '<') {
+				var4 = var6;
+				continue;
+			}
+			int var9;
+			if (var7 == '>' && var4 != -1) {
+				String var8 = var1.substring(var4 + 1, var6);
+				var4 = -1;
+				if (var8.equals("lt")) {
+					var7 = '<';
+				} else if (var8.equals("gt")) {
+					var7 = '>';
+				} else if (var8.startsWith("img=")) {
+					try {
+						var9 = class3.parseInt(var8.substring(4));
+						IndexedSprite var10 = AbstractFont_modIconSprites[var9];
+						var10.drawAt(var2, var3 + this.ascent - var10.height);
+						var2 += var10.width;
+						var5 = -1;
+					} catch (Exception var14) {
+					}
+					continue;
 				} else {
-					int var9;
-					if (var7 == '>' && var4 != -1) {
-						String var8 = var1.substring(var4 + 1, var6);
-						var4 = -1;
-						if (var8.equals("lt")) {
-							var7 = '<';
-						} else {
-							if (!var8.equals("gt")) {
-								if (var8.startsWith("img=")) {
-									try {
-										var9 = class3.parseInt(var8.substring(4));
-										IndexedSprite var10 = AbstractFont_modIconSprites[var9];
-										var10.drawAt(var2, var3 + this.ascent - var10.height);
-										var2 += var10.width;
-										var5 = -1;
-									} catch (Exception var14) {
-									}
-								} else {
-									this.decodeTag(var8);
-								}
-								continue;
-							}
-
-							var7 = '>';
-						}
-					}
-
-					if (var7 == 160) {
-						var7 = ' ';
-					}
-
-					if (var4 == -1) {
-						if (this.kerning != null && var5 != -1) {
-							var2 += this.kerning[var7 + (var5 << 8)];
-						}
-
-						int var12 = this.widths[var7];
-						var9 = this.heights[var7];
-						if (var7 != ' ') {
-							if (AbstractFont_alpha == 256) {
-								if (AbstractFont_shadow != -1) {
-									AbstractFont_drawGlyph(this.pixels[var7], var2 + this.leftBearings[var7] + 1, var3 + this.topBearings[var7] + 1, var12, var9, AbstractFont_shadow);
-								}
-
-								this.drawGlyph(this.pixels[var7], var2 + this.leftBearings[var7], var3 + this.topBearings[var7], var12, var9, AbstractFont_color);
-							} else {
-								if (AbstractFont_shadow != -1) {
-									AbstractFont_drawGlyphAlpha(this.pixels[var7], var2 + this.leftBearings[var7] + 1, var3 + this.topBearings[var7] + 1, var12, var9, AbstractFont_shadow, AbstractFont_alpha);
-								}
-
-								this.drawGlyphAlpha(this.pixels[var7], var2 + this.leftBearings[var7], var3 + this.topBearings[var7], var12, var9, AbstractFont_color, AbstractFont_alpha);
-							}
-						} else if (AbstractFont_justificationTotal > 0) {
-							AbstractFont_justificationCurrent += AbstractFont_justificationTotal;
-							var2 += AbstractFont_justificationCurrent >> 8;
-							AbstractFont_justificationCurrent &= 255;
-						}
-
-						int var13 = this.advances[var7];
-						if (AbstractFont_strike != -1) {
-							Rasterizer2D.Rasterizer2D_drawHorizontalLine(var2, var3 + (int)((double)this.ascent * 0.7D), var13, AbstractFont_strike);
-						}
-
-						if (AbstractFont_underline != -1) {
-							Rasterizer2D.Rasterizer2D_drawHorizontalLine(var2, var3 + this.ascent + 1, var13, AbstractFont_underline);
-						}
-
-						var2 += var13;
-						var5 = var7;
-					}
+					this.decodeTag(var8);
+					continue;
 				}
 			}
+
+			if (var7 == 160) {
+				var7 = ' ';
+			}
+
+			if (var4 != -1) {
+				continue;
+			}
+			if (this.kerning != null && var5 != -1) {
+				var2 += this.kerning[var7 + (var5 << 8)];
+			}
+
+			int var12 = this.widths[var7];
+			var9 = this.heights[var7];
+			if (var7 == ' ') {
+				if (AbstractFont_justificationTotal > 0) {
+					AbstractFont_justificationCurrent += AbstractFont_justificationTotal;
+					var2 += AbstractFont_justificationCurrent >> 8;
+					AbstractFont_justificationCurrent &= 255;
+				}
+			} else if (AbstractFont_alpha == 256) {
+				if (AbstractFont_shadow != -1) {
+					AbstractFont_drawGlyph(this.pixels[var7], var2 + this.leftBearings[var7] + 1, var3 + this.topBearings[var7] + 1, var12, var9, AbstractFont_shadow);
+				}
+
+				this.drawGlyph(this.pixels[var7], var2 + this.leftBearings[var7], var3 + this.topBearings[var7], var12, var9, AbstractFont_color);
+			} else {
+				if (AbstractFont_shadow != -1) {
+					AbstractFont_drawGlyphAlpha(this.pixels[var7], var2 + this.leftBearings[var7] + 1, var3 + this.topBearings[var7] + 1, var12, var9, AbstractFont_shadow, AbstractFont_alpha);
+				}
+
+				this.drawGlyphAlpha(this.pixels[var7], var2 + this.leftBearings[var7], var3 + this.topBearings[var7], var12, var9, AbstractFont_color, AbstractFont_alpha);
+			}
+
+			int var13 = this.advances[var7];
+			if (AbstractFont_strike != -1) {
+				Rasterizer2D.Rasterizer2D_drawHorizontalLine(var2, var3 + (int)((double)this.ascent * 0.7D), var13, AbstractFont_strike);
+			}
+
+			if (AbstractFont_underline != -1) {
+				Rasterizer2D.Rasterizer2D_drawHorizontalLine(var2, var3 + this.ascent + 1, var13, AbstractFont_underline);
+			}
+
+			var2 += var13;
+			var5 = var7;
 		}
 
 	}

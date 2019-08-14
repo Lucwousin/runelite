@@ -426,7 +426,7 @@ public class WorldHopperPlugin extends Plugin
 			final MenuEntry hopTo = new MenuEntry();
 			hopTo.setOption(HOP_TO);
 			hopTo.setTarget(event.getTarget());
-			hopTo.setType(MenuOpcode.RUNELITE.getId());
+			hopTo.setOpcode(MenuOpcode.RUNELITE.getId());
 			hopTo.setParam0(event.getActionParam0());
 			hopTo.setParam1(event.getActionParam1());
 
@@ -681,7 +681,7 @@ public class WorldHopperPlugin extends Plugin
 		rsWorld.setId(world.getId());
 		rsWorld.setPlayerCount(world.getPlayers());
 		rsWorld.setLocation(world.getLocation());
-		rsWorld.setTypes(WorldUtil.toWorldTypes(world.getTypes()));
+		rsWorld.setOpcodes(WorldUtil.toWorldTypes(world.getTypes()));
 
 		if (client.getGameState() == GameState.LOGIN_SCREEN)
 		{

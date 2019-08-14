@@ -166,7 +166,8 @@ public class NPCDefinition extends DualNode {
 	@ObfuscatedGetter(
 		intValue = 648485331
 	)
-	public int field3492;
+	@Export("rotation")
+	public int rotation;
 	@ObfuscatedName("ad")
 	@Export("transforms")
 	public int[] transforms;
@@ -222,7 +223,7 @@ public class NPCDefinition extends DualNode {
 		this.ambient = 0;
 		this.contrast = 0;
 		this.headIconPrayer = -1;
-		this.field3492 = 32;
+		this.rotation = 32;
 		this.transformVarbit = -1;
 		this.transformVarp = -1;
 		this.isInteractable = true;
@@ -336,7 +337,7 @@ public class NPCDefinition extends DualNode {
 		} else if (var2 == 102) {
 			this.headIconPrayer = var1.readUnsignedShort();
 		} else if (var2 == 103) {
-			this.field3492 = var1.readUnsignedShort();
+			this.rotation = var1.readUnsignedShort();
 		} else if (var2 != 106 && var2 != 118) {
 			if (var2 == 107) {
 				this.isInteractable = false;

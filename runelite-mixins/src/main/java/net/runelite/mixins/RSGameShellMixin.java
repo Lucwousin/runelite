@@ -65,6 +65,8 @@ public abstract class RSGameShellMixin implements RSGameShell
 	{
 		thread = Thread.currentThread();
 		thread.setName("Client");
+
+
 	}
 
 	@Inject

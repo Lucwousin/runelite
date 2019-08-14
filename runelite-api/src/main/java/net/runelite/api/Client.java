@@ -37,6 +37,7 @@ import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.hooks.Callbacks;
 import net.runelite.api.hooks.DrawCallbacks;
+import net.runelite.api.menus.DirectMenuEntryElement;
 import net.runelite.api.menus.MenuEntry;
 import net.runelite.api.vars.AccountType;
 import net.runelite.api.widgets.Widget;
@@ -556,7 +557,8 @@ public interface Client extends GameShell
 	 *
 	 * @return array of open menu entries
 	 */
-	MenuEntry[] getMenuEntries();
+	@Deprecated // TODO: Write javadoc
+	DirectMenuEntryElement getMenuEntries();
 
 	/**
 	 * @return amount of menu entries the client has (same as client.getMenuEntries().size())
@@ -571,6 +573,7 @@ public interface Client extends GameShell
 	 *
 	 * @param entries new array of open menu entries
 	 */
+	@Deprecated // TODO: Write javadoc
 	void setMenuEntries(MenuEntry[] entries);
 
 	/**
@@ -1729,10 +1732,14 @@ public interface Client extends GameShell
 	void setUnhiddenCasts(Set<String> casts);
 
 	/**
-	 * Sorts the current menu entries in the same way the client does this.
-	 * The last entry will be the left click one after this.
+	 * DEPRECATED -> MOVED TO MENUENTRIES
+	 * DEPRECATED -> MOVED TO MENUENTRIES
 	 */
+	//@Deprecated
 	void sortMenuEntries();
+	//{
+	//	assert false;
+	//}
 
 	/**
 	 * Add player to friendlist

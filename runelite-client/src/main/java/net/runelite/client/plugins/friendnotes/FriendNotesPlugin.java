@@ -187,7 +187,7 @@ public class FriendNotesPlugin extends Plugin
 			// Build "Add Note" or "Edit Note" menu entry
 			final MenuEntry addNote = new MenuEntry();
 			addNote.setOption(hoveredFriend == null || hoveredFriend.getNote() == null ? ADD_NOTE : EDIT_NOTE);
-			addNote.setType(MenuOpcode.RUNELITE.getId());
+			addNote.setOpcode(MenuOpcode.RUNELITE.getId());
 			addNote.setTarget(event.getTarget()); //Preserve color codes here
 			addNote.setParam0(event.getActionParam0());
 			addNote.setParam1(event.getActionParam1());
